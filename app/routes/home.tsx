@@ -1,13 +1,29 @@
-import type { Route } from "./+types/home";
-import { Welcome } from "../welcome/welcome";
+import type { Route } from "./+types/Home";
 
 export function meta({}: Route.MetaArgs) {
   return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
+    { title: "Lunge" },
+    { name: "description", content: "Lunge: Fitness Tracker" },
   ];
 }
 
 export default function Home() {
-  return <Welcome />;
+
+    return (
+        <div className="w-full h-full font-rubik p-5"> 
+
+            <div className="flex flex-col">
+                
+                <p className="text-3xl text-black mt-5 font-semibold">
+                    Welcome back, User!
+                </p>
+
+                <p className="text-3xl text-black mt-5 font-base">
+                    All account information will be displayed here.
+                </p>
+
+            </div>
+            
+        </div>
+    );
 }
