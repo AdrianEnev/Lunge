@@ -1,20 +1,21 @@
 import {
-  isRouteErrorResponse,
-  Links,
-  Meta,
-  Outlet,
-  Scripts,
-  ScrollRestoration,
+isRouteErrorResponse,
+Links,
+Meta,
+Outlet,
+Scripts,
+ScrollRestoration,
 } from "react-router";
 
 import type { Route } from "./+types/root";
 import stylesheet from "./app.css?url";
 
-import { createContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { FIREBASE_AUTH } from "firebaseConfig";
 import SidebarAuthenticated from "./components/SidebarAuthenticated";
 import HeaderUnauthenticated from "./components/HeaderUnauthenticated";
+import { GlobalContext, GlobalProvider } from "./GlobalContext";
 
 export const links: Route.LinksFunction = () => [
     { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -48,25 +49,26 @@ export function Layout({ children }: { children: React.ReactNode }) {
     );
 }
 
-export default function App() {
+function AppContent() {
 
-    // always set to false for now
-    const [loading, setLoading] = useState(true);
+    const { loading, setLoading } = useContext(GlobalContext) || { loading: false, setLoading: () => {} };
+
     const [isAuthenticated, setIsAuthenticated] = useState(FIREBASE_AUTH.currentUser ? true : false);
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(FIREBASE_AUTH, (user) => {
 
             if (user) {
+
                 console.log('user is logged in');
                 setIsAuthenticated(true);
-                setLoading(false);
+
             } else {
                 console.log("No user is logged in");
                 setIsAuthenticated(false);
-                setLoading(false);
             }
-
+            
+            setLoading(false)
         });
     
         return () => unsubscribe(); // Clean up the listener
@@ -92,57 +94,62 @@ export default function App() {
     }, []);
 
     if (loading) {
-        return <div></div>;
+        return <div>
+            <p className="text-3xl font-medium text-center mt-12">Loading...</p>
+        </div>;
     }
 
     return (
-            <div className="w-full h-full">
-
-                <div className="flex flex-row w-full h-full">
-                    
-                    {isAuthenticated ? (
-                        <SidebarAuthenticated />
-                    ) : (
-                        <HeaderUnauthenticated />
-                    )}
-                    
-                    <div className="h-full w-[86%] pl-8">
-                        <main className="">
-                            <Outlet /> {/* The content of each route will be rendered here */}
-                        </main>
-                    </div>
-
+        <div className="w-full h-full">
+            <div className="flex flex-row w-full h-full">
+                {isAuthenticated ? (
+                    <SidebarAuthenticated />
+                ) : (
+                    <HeaderUnauthenticated />
+                )}
+                <div className="h-full w-[86%] pl-8">
+                    <main className="">
+                        <Outlet /> {/* The content of each route will be rendered here */}
+                    </main>
                 </div>
-                
             </div>
-      );
+        </div>
+    );
+}
+
+export default function App() {
+    return (
+        <GlobalProvider>
+            <AppContent />
+        </GlobalProvider>
+    );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
-  let message = "Oops!";
-  let details = "An unexpected error occurred.";
-  let stack: string | undefined;
+    let message = "Oops!";
+    let details = "An unexpected error occurred.";
+    let stack: string | undefined;
 
-  if (isRouteErrorResponse(error)) {
-    message = error.status === 404 ? "404" : "Error";
-    details =
-      error.status === 404
-        ? "The requested page could not be found."
-        : error.statusText || details;
-  } else if (import.meta.env.DEV && error && error instanceof Error) {
-    details = error.message;
-    stack = error.stack;
-  }
+    if (isRouteErrorResponse(error)) {
+        message = error.status === 404 ? "404" : "Error";
+        details =
+        error.status === 404
+            ? "The requested page could not be found."
+            : error.statusText || details;
+    } else if (import.meta.env.DEV && error && error instanceof Error) {
+        details = error.message;
+        stack = error.stack;
+    }
 
-  return (
-    <main className="pt-16 p-4 container mx-auto">
-      <h1>{message}</h1>
-      <p>{details}</p>
-      {stack && (
-        <pre className="w-full p-4 overflow-x-auto">
-          <code>{stack}</code>
-        </pre>
-      )}
-    </main>
-  );
+    return (
+        <main className="pt-16 p-4 container mx-auto">
+        <h1>{message}</h1>
+        <p>{details}</p>
+        {stack && (
+            <pre className="w-full p-4 overflow-x-auto">
+            <code>{stack}</code>
+            </pre>
+        )}
+        </main>
+    );
 }

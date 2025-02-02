@@ -2,6 +2,8 @@ import {signInWithEmailAndPassword} from 'firebase/auth'
 import { FIREBASE_AUTH } from 'firebaseConfig'
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
+import { GlobalContext } from '~/GlobalContext'
+import { getUserLoginInfo } from '~/use/useGetUserInfo'
 
 const Account = () => {
 
@@ -12,12 +14,15 @@ const Account = () => {
 
     const [isAuthenticated, setIsAuthenticated] = useState(FIREBASE_AUTH.currentUser ? true : false)
 
-    useEffect(() => {
+    const {setLoading} = useContext(GlobalContext) || {setLoading: () => {console.log('error')}}
+
+    /*useEffect(() => {
 
         if (isAuthenticated) {
             navigate('/account')
         }
-    }, [])
+
+    }, [isAuthenticated])*/
 
 
     const handleFirebaseLogin = (email: string, password: string) => {
@@ -30,10 +35,16 @@ const Account = () => {
         }
         
         signInWithEmailAndPassword(FIREBASE_AUTH, email, password)
-        .then((userCredential) => {
+        .then(async (userCredential) => {
             
             // Signed in 
             const user = userCredential.user;
+
+            // show loading screen while retreiving info
+            setLoading(true)
+            await getUserLoginInfo(user)
+            setLoading(false)
+
             navigate('/');
             
         })

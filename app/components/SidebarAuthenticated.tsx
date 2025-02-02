@@ -51,7 +51,6 @@ const SidebarAuthenticated = () => {
                     <p className='text-gray-500 text-sm mt-5'>Test</p>
 
                     <SidebarCategories title='Daily Goals' icon={faShieldHalved} route={() => navigate("/daily-goals")}/>
-                    <SidebarCategories title='Language' icon={faChevronDown} route={() => navigate("/language")}/>
                     <SidebarCategories title='Settings' icon={faHouse} route={() => navigate("/settings")}/>
 
                     <div className='w-[10%] absolute bottom-4'>

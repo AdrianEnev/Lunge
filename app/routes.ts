@@ -4,14 +4,15 @@ export default [
 
     index("routes/Home.tsx"), 
     route('contact', 'routes/Contact.tsx'),
+    route('account', 'routes/Account/Account.tsx'),
     
     //route("account", 'routes/Account/Account.tsx', [
-    route('account', 'routes/Account/Account.tsx'),
     route('login', 'routes/Account/AccountLogin.tsx'),
     route('register', 'routes/Account/AccountRegister.tsx'),
     //]),
 
     route('info', 'routes/Info.tsx'),
+
     route('settings', 'routes/Settings.tsx'),
 
     route('workouts', 'routes/Workouts.tsx'),
@@ -25,7 +26,7 @@ export default [
         route('post/:postId', 'routes/post.tsx'),
     ]),
 
-    // nested roiutesd
+    // nested routes
     layout('routes/dashboard.tsx', [
         route('finances', 'routes/finances.tsx'),
         route('personalInfo', 'routes/personalInfo.tsx')
