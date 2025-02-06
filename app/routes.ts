@@ -16,6 +16,8 @@ export default [
     route('settings', 'routes/Settings.tsx'),
 
     route('workouts', 'routes/Workouts.tsx'),
+    route('workouts/workout/:workoutId', 'routes/ViewWorkout.tsx'),
+
     route('food-log', 'routes/FoodLog.tsx'),
     route('statistics', 'routes/Statistics.tsx'),
     route('friends', 'routes/Friends.tsx'),

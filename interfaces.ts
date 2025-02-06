@@ -1,6 +1,7 @@
-import { Timestamp } from "firebase/firestore";
+import { FieldValue, Timestamp } from "firebase/firestore";
 
 export interface Set {
+    setIndex: any;
     reps: string;
     weight: string;
     intensity: number;
@@ -21,7 +22,8 @@ export interface Workout {
     id: string;
     colour: string;
     numberOfExercises: number;
-    created: Timestamp;
+    folderId: string | null;
+    created: Timestamp | null;
 }
 
 export interface Split {

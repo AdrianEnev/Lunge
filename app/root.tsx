@@ -102,11 +102,15 @@ function AppContent() {
     return (
         <div className="w-full h-full">
             <div className="flex flex-row w-full h-full">
-                {isAuthenticated ? (
-                    <SidebarAuthenticated />
-                ) : (
-                    <HeaderUnauthenticated />
-                )}
+
+                <div className="w-[14%] h-full">
+                    {isAuthenticated ? (
+                        <SidebarAuthenticated />
+                    ) : (
+                        <HeaderUnauthenticated />
+                    )}
+                </div>
+
                 <div className="h-full w-[86%] pl-8">
                     <main className="">
                         <Outlet /> {/* The content of each route will be rendered here */}
