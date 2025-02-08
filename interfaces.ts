@@ -10,7 +10,7 @@ export interface Set {
 
 export interface Exercise {
     title: string;
-    sets: Set[];
+    sets: Set[]; 
     exerciseIndex: number;
     id: string;
 }

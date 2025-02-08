@@ -3,8 +3,6 @@ import { FIREBASE_AUTH, FIRESTORE_DB } from "firebaseConfig";
 import type { Workout, Exercise, Set } from 'interfaces';
 
 export const getWorkout = async (workoutId: string, currentUserUid: any): Promise<Workout | null> => {
-   
-    
 
     const usersCollectionRef = collection(FIRESTORE_DB, 'users');
     const userDocRef = doc(usersCollectionRef, currentUserUid);
