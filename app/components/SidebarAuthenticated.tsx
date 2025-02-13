@@ -1,5 +1,5 @@
 import { faCalendar, faChevronDown, faEnvelope, faHouse, faMagnifyingGlass, faPerson, faShieldHalved } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+//import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { FIREBASE_AUTH } from 'firebaseConfig'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
@@ -37,7 +37,7 @@ const SidebarAuthenticated = () => {
                     
                 </div>
 
-                <div className='mt-12 flex flex-col gap-y-1 font-medium font-sans text-gray-500'>
+                <div className='mt-12 flex flex-col gap-y-1 text-gray-700'>
 
                     <SidebarCategories title='Home' icon={faHouse} currentPage={'Test'} route={() => navigate("/")}/>
                     <SidebarCategories title='Account' icon={faShieldHalved} currentPage={'Test'} route={() => navigate("/account")}/>

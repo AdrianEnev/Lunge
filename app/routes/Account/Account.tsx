@@ -148,6 +148,7 @@ const Account = () => {
 
                     FIREBASE_AUTH.signOut()
                     localStorage.clear();
+                    console.log('cleared storage')
                     navigate('/')
                 }}>
                     <p className='text-xl p-5 bg-red-400 rounded-xl text-white font-bold mt-3 shadow-md'>Logout</p>

@@ -1,4 +1,4 @@
-import { getFirestore, doc, getDoc, collection, getDocs } from "firebase/firestore";
+import { doc, getDoc, collection, getDocs } from "firebase/firestore";
 import { FIREBASE_AUTH, FIRESTORE_DB } from "firebaseConfig";
 import type { Workout, Exercise, Set } from 'interfaces';
 

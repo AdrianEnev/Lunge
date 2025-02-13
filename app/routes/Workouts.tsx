@@ -4,6 +4,8 @@ import React, { useEffect, useState } from 'react'
 import { FixedSizeList as List } from 'react-window'
 import { Outlet, useNavigate } from 'react-router'
 import { timestampToDate } from '~/use/useTimestampToDate'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 interface WorkoutElementProps {
     workout: Workout
@@ -59,7 +61,6 @@ const Workouts = () => {
                 hover:opacity-50'
                 onClick={() => {
                     setSelectedFolderWorkouts(folder.workouts)
-                    console.log(folder.workouts)
                 }}
             >
                 <p className='text-base w-1/3'>
@@ -86,6 +87,7 @@ const Workouts = () => {
 
     useEffect(() => {
         const workoutsLS = localStorage.getItem('workouts');
+        //console.log(workoutsLS)
 
         const folderMap: { [key: string]: Workout[] } = {}
         const workouts: Workout[] = []
@@ -107,14 +109,14 @@ const Workouts = () => {
         const folders: any[] = Object.keys(folderMap).map(folderId => {
             const middleDigit = folderId.replace('folder_', '')[Math.floor((folderId.replace('folder_', '').length - 1) / 2)];
             return {
-            id: folderId,
-            title: `Folder ${middleDigit}`,
-            folderId: folderId,
-            workouts: folderMap[folderId],
-            exercises: [],
-            colour: '',
-            numberOfExercises: 0,
-            created: serverTimestamp()
+                id: folderId,
+                title: `Folder ${middleDigit}`,
+                folderId: folderId,
+                workouts: folderMap[folderId],
+                exercises: [],
+                colour: '',
+                numberOfExercises: 0,
+                created: serverTimestamp()
             }
         })
 
@@ -186,7 +188,6 @@ const Workouts = () => {
             <p className="text-3xl text-black mt-5 font-semibold">
                 Workout Splits
             </p>
-
             <div className='w-full h-[2px] bg-gray-100 rounded-full mt-2'></div>
 
             <div className='flex flex-row gap-x-2 mt-2 mb-1 px-2'>
@@ -217,14 +218,15 @@ const Workouts = () => {
                     </List>
 
                     {selectedFolderWorkouts.length !== 0 && (
-                        <div className='relative bottom-4'>
+                        <div className='relative bottom-1 mt-[-46px]'>
 
                             <div className='w-full h-[2px] bg-gray-100 rounded-full'></div> 
 
-                            <button onClick={() => {
+                            <button className='pt-2 px-2'
+                            onClick={() => {
                                 setSelectedFolderWorkouts([])
                             }}>
-                                <p>go back</p>
+                               <FontAwesomeIcon icon={faArrowLeft} className='w-8 h-8'/>
                             </button>
                         </div>
                     )}

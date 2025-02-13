@@ -7,8 +7,8 @@ export default [
     route('account', 'routes/Account/Account.tsx'),
     
     //route("account", 'routes/Account/Account.tsx', [
-    route('login', 'routes/Account/AccountLogin.tsx'),
-    route('register', 'routes/Account/AccountRegister.tsx'),
+        route('login', 'routes/Account/AccountLogin.tsx'),
+        route('register', 'routes/Account/AccountRegister.tsx'),
     //]),
 
     route('info', 'routes/Info.tsx'),
@@ -19,6 +19,8 @@ export default [
     route('workouts/workout/:workoutId', 'routes/ViewWorkout.tsx'),
 
     route('food-log', 'routes/FoodLog.tsx'),
+    route('food-log/:foodDate', 'routes/FoodDay.tsx'),
+
     route('statistics', 'routes/Statistics.tsx'),
     route('friends', 'routes/Friends.tsx'),
 
