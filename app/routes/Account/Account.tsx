@@ -1,10 +1,12 @@
-import { FIREBASE_AUTH } from 'firebaseConfig';
+import { FIREBASE_AUTH, FIRESTORE_DB } from 'firebaseConfig';
 import React, { useContext, useEffect, useState } from 'react'
 import { Outlet, useNavigate } from 'react-router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { changeUsername } from '~/use/useChangeUsername';
 import { GlobalContext } from '~/GlobalContext';
+import { sendPasswordResetEmail } from 'firebase/auth';
+import { collection, doc, getDoc, updateDoc } from 'firebase/firestore';
 
 const Account = () => {
 
@@ -17,7 +19,9 @@ const Account = () => {
     const [oldUsername, setOldUsername] = useState('');
     const [username, setUsername] = useState('');
 
-    const [editModeEnabled, setEditModeEnabled] = useState(false);
+    const [editModeEnabled, setEditModeEnabled] = useState(false)
+
+    const [passwordResetEmailSent, setPasswordResetEmailSent] = useState(false)
 
     useEffect(() => {
 
@@ -26,6 +30,59 @@ const Account = () => {
         setOldUsername(username || 'User');
 
     }, []);
+
+    const changePassword = async () => {
+
+        //if (email.length <= 0) {    
+           // return;
+        //}
+
+        if (passwordResetEmailSent) {
+            return;
+        }
+
+        setPasswordResetEmailSent(true)
+
+        // Check if 3 days have passed since last password update
+        const usersCollectionRef = collection(FIRESTORE_DB, 'users');
+        const userDocRef = doc(usersCollectionRef, FIREBASE_AUTH.currentUser?.uid);
+
+        const userDocRefSnapshot = await getDoc(userDocRef)
+
+        // Get current date + last changed date which is a string and has to be converted to a date
+        const lastSentEmail = new Date(userDocRefSnapshot.data()?.resetPasswordEmailLastSent);
+        const currentDate = new Date();
+
+        const difference = currentDate.getTime() - (lastSentEmail?.getTime() || 0); // use 0 if date is undefined
+        const daysDifference = difference / (1000 * 3600 * 24);
+
+        if (daysDifference < 3) {
+            setEditModeEnabled(false)
+            setPasswordResetEmailSent(false)
+            alert('Please wait another ' + Math.round(3 - daysDifference) + ' days before changing your password again');
+            return
+        }
+
+        const email = FIREBASE_AUTH.currentUser?.email?.toString();
+
+        if (email) {
+            sendPasswordResetEmail(FIREBASE_AUTH, email)
+        .then(async () => {
+
+            const currentDateString = currentDate.toISOString();
+
+            await updateDoc(userDocRef, {
+                resetPasswordEmailLastSent: currentDateString
+            });
+            alert('email-sent-sucessfuly');
+        })
+        .catch((error) => {
+            alert(error.message);
+        });}
+
+        setEditModeEnabled(false)
+        setPasswordResetEmailSent(false)
+    }
 
     return (
         <div className="w-full h-full font-rubik p-5"> 
@@ -117,9 +174,14 @@ const Account = () => {
                             onChange={(event) => {setUsername(event.target.value)}}
                         />
                         
-                        <button className='w-[160px] h-8 border border-gray-200 
-                        shadow-md rounded-lg flex flex-row items-center justify-center 
-                        gap-x-2 active:opacity-60'>
+                        <button 
+                            className='w-[160px] h-8 border border-gray-200 
+                            shadow-md rounded-lg flex flex-row items-center justify-center 
+                            gap-x-2 active:opacity-60'
+                            onClick={() => {
+                                changePassword();
+                            }}
+                        >
                             <p>Change Password</p>
                         </button>
                     </div>
