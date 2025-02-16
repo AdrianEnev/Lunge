@@ -86,7 +86,7 @@ export const getUserLoginInfo = async (user: any) => {
     const workoutsData = workoutsSnapshot.docs
         .map(doc => ({ 
             id: doc.id, 
-            title: (doc.data() as Workout).title, 
+            title: (doc.data() as Workout).title || "Error!", 
             created: (doc.data() as any).created,
             colour: (doc.data() as Workout).colour,
             folderId: (doc.data() as Workout).folderId || null,
@@ -95,6 +95,33 @@ export const getUserLoginInfo = async (user: any) => {
         .sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime());
 
     localStorage.setItem("workouts", JSON.stringify(workoutsData));
+    
+
+    // Get food days -----------------------------------------------------
+    const foodDaysCollectionRef = collection(userDocRef, "food_days");
+    const foodDaysSnapshot = await getDocs(foodDaysCollectionRef);
+
+    // title example - "2024-11-17"
+    // converted to created to be used as a date and not string, title is used for front end
+    const foodDaysData = foodDaysSnapshot.docs
+    .map(doc => {
+        const data = doc.data() as any;
+        const title = data.title || "Error!";
+        const created = new Date(title); // Convert title to Date object
+
+        return {
+            id: doc.id,
+            title,
+            calories: data.calories || "-",
+            protein: data.protein || "-",
+            carbs: data.carbs || "-",
+            fat: data.fat || "-",
+            created
+        };
+    })
+    .sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime());
+
+    localStorage.setItem("food_days", JSON.stringify(foodDaysData));
 
 }
 

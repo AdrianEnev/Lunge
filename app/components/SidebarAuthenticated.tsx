@@ -49,12 +49,11 @@ const SidebarAuthenticated = () => {
                     <SidebarCategories title='Saved' icon={faPerson} currentPage={'Test'} route={() => navigate("/workouts")}/>
 
                     <p className='text-gray-500 text-sm mt-5'>Nigga</p>
-                    <SidebarCategories title='Food Log' icon={faCalendar} currentPage={'Test'} route={() => navigate("/food-log")}/>
+                    <SidebarCategories title='Food' icon={faCalendar} currentPage={'Test'} route={() => navigate("/food-log")}/>
                     <SidebarCategories title='Statistics' icon={faMagnifyingGlass} currentPage={'Test'} route={() => navigate("/statistics")}/>
 
                     <p className='text-gray-500 text-sm mt-5'>Faggot</p>
 
-                    <SidebarCategories title='Daily Goals' icon={faShieldHalved} currentPage={'Test'} route={() => navigate("/daily-goals")}/>
                     <SidebarCategories title='Settings' icon={faHouse} currentPage={'Test'} route={() => navigate("/settings")}/>
 
                     <div className='w-[10%] absolute bottom-4'>

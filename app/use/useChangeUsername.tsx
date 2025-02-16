@@ -97,7 +97,8 @@ export const changeUsername = async (newUsername: string, oldUsername: string, s
 
     // if 7 days haven't passed since the last username change, alert the user that there is still a cooldown
     if (daysDifference < 7) {
-        alert('Please wait another ' + (7 - daysDifference) + ' days before changing your username again');
+        setUsername(oldUsername)
+        alert('Please wait another ' + Math.round(7 - daysDifference) + ' days before changing your username again');
         return;
     }
 

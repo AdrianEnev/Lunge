@@ -62,3 +62,13 @@ export interface Food {
     grams?: number;
     id: any;
 }
+
+export interface FoodDay {
+    title: string;
+    calories: number;
+    carbs: number;
+    protein: number;
+    fat: number;
+    id: string;
+    created: any;
+}

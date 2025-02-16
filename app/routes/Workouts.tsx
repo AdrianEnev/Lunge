@@ -87,6 +87,7 @@ const Workouts = () => {
 
     useEffect(() => {
         const workoutsLS = localStorage.getItem('workouts');
+        //console.log(workoutsLS)
 
         const folderMap: { [key: string]: Workout[] } = {}
         const workouts: Workout[] = []
@@ -108,14 +109,14 @@ const Workouts = () => {
         const folders: any[] = Object.keys(folderMap).map(folderId => {
             const middleDigit = folderId.replace('folder_', '')[Math.floor((folderId.replace('folder_', '').length - 1) / 2)];
             return {
-            id: folderId,
-            title: `Folder ${middleDigit}`,
-            folderId: folderId,
-            workouts: folderMap[folderId],
-            exercises: [],
-            colour: '',
-            numberOfExercises: 0,
-            created: serverTimestamp()
+                id: folderId,
+                title: `Folder ${middleDigit}`,
+                folderId: folderId,
+                workouts: folderMap[folderId],
+                exercises: [],
+                colour: '',
+                numberOfExercises: 0,
+                created: serverTimestamp()
             }
         })
 
@@ -187,7 +188,6 @@ const Workouts = () => {
             <p className="text-3xl text-black mt-5 font-semibold">
                 Workout Splits
             </p>
-
             <div className='w-full h-[2px] bg-gray-100 rounded-full mt-2'></div>
 
             <div className='flex flex-row gap-x-2 mt-2 mb-1 px-2'>
