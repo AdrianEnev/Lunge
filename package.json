@@ -1,5 +1,6 @@
 {
   "name": "fitness-tracker-web",
+  "homepage": "https://adrianenev.github.io",
   "private": true,
   "type": "module",
   "scripts": {

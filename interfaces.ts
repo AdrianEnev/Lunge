@@ -72,3 +72,13 @@ export interface FoodDay {
     id: string;
     created: any;
 }
+
+// Alternative to GoalNutrients used for the Settings page
+export interface DailyGoal {
+    carbs: number;
+    protein: number;
+    fat: number;
+    calories: number;
+    id: string;
+    [key: string]: number | string;
+}

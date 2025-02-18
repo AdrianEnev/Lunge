@@ -1,46 +1,67 @@
 import type { GoalNutrients } from 'interfaces'
 import React, { useEffect, useState } from 'react'
+import { changeDailyGoal } from '~/use/useChangeDailyGoal';
 
 interface DailyGoalsElementProps {
     dailyGoal: any;
     index: number;
+    selectedNutrient: string;
+    setSelectedNutrient: (nutrient: string) => void;
 }
 
-const DailyGoalsElement = ({ dailyGoal, index }: DailyGoalsElementProps) => {
-    return (
-        <button
-            className={`w-full h-10 text-gray-600 border-y border-gray-100 px-3 
-            flex flex-row items-center
-           `}
-            onClick={() => {}}
-        >
-            <p className={`text-base w-1/4 hover:opacity-50`}>
-                {dailyGoal.calories}
-            </p>
-
-            <p className='text-base w-1/4 hover:opacity-50'>
-                {dailyGoal.carbs}
-            </p>
-            
-            <p className='text-base w-1/4 hover:opacity-50'>
-                {dailyGoal.fat}
-            </p>
-
-            <p className='text-base w-1/4 hover:opacity-50'>
-                {dailyGoal.protein}
-            </p>
-
-        </button>
-    );
-};
-
 const Settings = () => {
+    
+    const [selectedNutrient, setSelectedNutrient] = useState('')
 
     const [dailyGoals, setDailyGoals] = useState<GoalNutrients[]>([])
     const [loading, setLoading] = useState(false)
 
+    const DailyGoalsElement = ({ dailyGoal, index, selectedNutrient, setSelectedNutrient }: DailyGoalsElementProps) => {
+
+        return (
+            <div
+                className={`w-full h-10 text-gray-600 border-y border-gray-100 px-3 
+                flex flex-row items-center
+               `}
+            >
+                {['calories', 'protein', 'carbs', 'fat'].map((nutrient) => (
+                    <button
+                        key={nutrient}
+                        className={`text-base w-1/4 hover:opacity-50 
+                            ${selectedNutrient === nutrient ? 'text-blue-500' : ''}
+                        `}
+                        onClick={() => setSelectedNutrient(nutrient)}
+                    >
+                        {selectedNutrient === nutrient ? (
+                            <input
+                                type="text"
+                                defaultValue={dailyGoal[nutrient]}
+                                className="w-full text-center border-none outline-none"
+                                onBlur={(e) => {
+                                    setSelectedNutrient('')
+                                    changeDailyGoal(nutrient, dailyGoals, e.target.value)
+                                }}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter') {
+                                        setSelectedNutrient('')
+                                        changeDailyGoal(nutrient, dailyGoals, e.currentTarget.value)
+                                    }
+                                }}
+                                maxLength={selectedNutrient === 'calories' ? 4 : 3}
+                            />
+                        ) : (
+                            <p>{dailyGoal[nutrient]}</p>
+                        )}
+                    </button>
+                ))}
+            </div>
+        );
+    };
+
+    const dailyGoalsLS = localStorage.getItem('dailyGoals')
+
     useEffect(() => {
-        const dailyGoalsLS = localStorage.getItem('dailyGoals')
+        
         if (dailyGoalsLS) {
 
             // get goals object
@@ -56,10 +77,11 @@ const Settings = () => {
 
             const convertedDailyGoals = convertToGoalNutrients(dailyGoalsObject)
             setDailyGoals(convertedDailyGoals)
+            console.log(convertedDailyGoals)
             
         }
         
-    }, [])
+    }, [dailyGoalsLS])
 
     return (
         <div className="w-full h-full font-rubik p-5"> 
@@ -89,7 +111,13 @@ const Settings = () => {
                                         </div>
 
                                         {dailyGoals.map((dailyGoal, index) => (
-                                            <DailyGoalsElement dailyGoal={dailyGoal} index={index} />
+                                            <DailyGoalsElement
+                                                dailyGoal={dailyGoal}
+                                                index={index}
+                                                key={dailyGoal.id}
+                                                selectedNutrient={selectedNutrient}
+                                                setSelectedNutrient={setSelectedNutrient}
+                                            />
                                         ))}
 
                                     </div>
@@ -99,7 +127,7 @@ const Settings = () => {
                             : 
                         (
                             <div>
-                                <p>not found</p>
+                                <p>Daily nutrients not retreived succesfuly</p>
                             </div>
                         )
                 )}
