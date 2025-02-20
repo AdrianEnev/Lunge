@@ -50,7 +50,7 @@ const HeaderUnauthenticated = () => {
                     </button>
 
                     <button 
-                    className='w-24 p-2 rounded-full h-10 bg-gray-400 flex items-center justify-center hover:opacity-70'
+                    className='w-24 p-2 rounded-full h-10 bg-red-400 flex items-center justify-center hover:opacity-70'
                         onClick={() => {
                             navigate('/contact')
                         }}

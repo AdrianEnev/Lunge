@@ -1,6 +1,9 @@
+import { collection, doc } from 'firebase/firestore';
+import { FIREBASE_AUTH, FIRESTORE_DB } from 'firebaseConfig';
 import type { GoalNutrients } from 'interfaces'
 import React, { useEffect, useState } from 'react'
 import { changeDailyGoal } from '~/use/useChangeDailyGoal';
+import { getFoodDays } from '~/use/useGetUserInfo';
 
 interface DailyGoalsElementProps {
     dailyGoal: any;
@@ -61,9 +64,7 @@ const Settings = () => {
     const dailyGoalsLS = localStorage.getItem('dailyGoals')
 
     useEffect(() => {
-        
         if (dailyGoalsLS) {
-
             // get goals object
             const dailyGoalsObject = JSON.parse(dailyGoalsLS)
 
@@ -77,10 +78,7 @@ const Settings = () => {
 
             const convertedDailyGoals = convertToGoalNutrients(dailyGoalsObject)
             setDailyGoals(convertedDailyGoals)
-            console.log(convertedDailyGoals)
-            
         }
-        
     }, [dailyGoalsLS])
 
     return (
@@ -130,7 +128,8 @@ const Settings = () => {
                                 <p>Daily nutrients not retreived succesfuly</p>
                             </div>
                         )
-                )}
+                )
+            }
 
         </div>
     )

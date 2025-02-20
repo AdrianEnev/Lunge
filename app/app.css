@@ -6,7 +6,7 @@
 
 html,
 body {
-  @apply bg-white dark:bg-gray-950 select-none h-full w-full;
+  @apply bg-white dark:bg-gray-950 select-none h-full w-full overflow-y-hidden;
 
   @media (prefers-color-scheme: dark) {
     color-scheme: dark;

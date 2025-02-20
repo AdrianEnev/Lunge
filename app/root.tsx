@@ -12,10 +12,11 @@ import stylesheet from "./app.css?url";
 
 import { useContext, useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
-import { FIREBASE_AUTH } from "firebaseConfig";
+import { FIREBASE_AUTH, FIRESTORE_DB } from "firebaseConfig";
 import SidebarAuthenticated from "./components/SidebarAuthenticated";
 import HeaderUnauthenticated from "./components/HeaderUnauthenticated";
 import { GlobalContext, GlobalProvider } from "./GlobalContext";
+import { collection, doc, onSnapshot } from "firebase/firestore";
 
 export const links: Route.LinksFunction = () => [
     { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -59,10 +60,8 @@ function AppContent() {
         const unsubscribe = onAuthStateChanged(FIREBASE_AUTH, (user) => {
 
             if (user) {
-
                 console.log('user is logged in');
                 setIsAuthenticated(true);
-
             } else {
                 console.log("No user is logged in");
                 setIsAuthenticated(false);
@@ -101,17 +100,22 @@ function AppContent() {
 
     return (
         <div className="w-full h-full">
+
+            {!isAuthenticated && (
+                <HeaderUnauthenticated />
+            )}
+
             <div className="flex flex-row w-full h-full">
 
-                <div className="w-[14%] h-full">
+                <div className={`${isAuthenticated ? "w-[14%]" : "w-0"} h-full `}>
                     {isAuthenticated ? (
                         <SidebarAuthenticated />
                     ) : (
-                        <HeaderUnauthenticated />
+                        null
                     )}
                 </div>
 
-                <div className="h-full w-[86%] pl-8">
+                <div className={`h-full ${isAuthenticated ? "w-[86%]" : "w-[95%]"} pl-8`}>
                     <main className="">
                         <Outlet /> {/* The content of each route will be rendered here */}
                     </main>
