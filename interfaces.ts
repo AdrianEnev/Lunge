@@ -26,6 +26,13 @@ export interface Workout {
     created: Timestamp | null;
 }
 
+export interface SavedWorkout {
+    title: string;
+    created: Timestamp;
+    duration: number;
+    id: string;
+}
+
 export interface Split {
     title: string;
     created: Timestamp;

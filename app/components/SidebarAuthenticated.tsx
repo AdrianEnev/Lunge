@@ -46,7 +46,7 @@ const SidebarAuthenticated = () => {
                     <p className='text-gray-500 text-sm mt-5'>Workouts</p>
 
                     <SidebarCategories title='Splits' icon={faPerson} currentPage={'Test'} route={() => navigate("/workouts")}/>
-                    <SidebarCategories title='Saved' icon={faPerson} currentPage={'Test'} route={() => navigate("/workouts")}/>
+                    <SidebarCategories title='Saved' icon={faPerson} currentPage={'Test'} route={() => navigate("/workouts/saved")}/>
 
                     <p className='text-gray-500 text-sm mt-5'>Nigga</p>
                     <SidebarCategories title='Food' icon={faCalendar} currentPage={'Test'} route={() => navigate("/food-log")}/>

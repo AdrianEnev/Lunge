@@ -116,7 +116,7 @@ function AppContent() {
                 </div>
 
                 <div className={`h-full ${isAuthenticated ? "w-[86%]" : "w-[95%]"} pl-8`}>
-                    <main className="">
+                    <main className="w-full h-full">
                         <Outlet /> {/* The content of each route will be rendered here */}
                     </main>
                 </div>

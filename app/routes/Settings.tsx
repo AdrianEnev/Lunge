@@ -3,7 +3,6 @@ import { FIREBASE_AUTH, FIRESTORE_DB } from 'firebaseConfig';
 import type { GoalNutrients } from 'interfaces'
 import React, { useEffect, useState } from 'react'
 import { changeDailyGoal } from '~/use/useChangeDailyGoal';
-import { getFoodDays } from '~/use/useGetUserInfo';
 
 interface DailyGoalsElementProps {
     dailyGoal: any;
@@ -31,7 +30,7 @@ const Settings = () => {
                     <button
                         key={nutrient}
                         className={`text-base w-1/4 hover:opacity-50 
-                            ${selectedNutrient === nutrient ? 'text-blue-500' : ''}
+                            ${selectedNutrient === nutrient ? 'text-red-400' : ''}
                         `}
                         onClick={() => setSelectedNutrient(nutrient)}
                     >

@@ -1,6 +1,6 @@
 import { collection, doc, getDoc, getDocs } from 'firebase/firestore';
 import { FIREBASE_AUTH, FIRESTORE_DB } from 'firebaseConfig';
-import type { Workout } from 'interfaces';
+import type { Workout, SavedWorkout } from 'interfaces';
 
 export const getUserLoginInfo = async (user: any) => {
 
@@ -45,7 +45,20 @@ export const getUserLoginInfo = async (user: any) => {
         .sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime());
 
     localStorage.setItem("workouts", JSON.stringify(workoutsData));
-    
+
+    // Get saved workout splits -----------------------------------------------------
+    const savedWorkoutsCollectionRef = collection(userDocRef, "saved_workouts");
+    const savedWorkoutsSnapshot = await getDocs(savedWorkoutsCollectionRef);
+    const savedWorkoutsData = savedWorkoutsSnapshot.docs
+        .map(doc => ({
+            id: doc.id,
+            title: (doc.data() as SavedWorkout).title || "Error!",
+            created: (doc.data() as any).created,
+            duration: (doc.data() as SavedWorkout).duration,
+        }))
+        .sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime());
+
+    localStorage.setItem("saved_workouts", JSON.stringify(savedWorkoutsData));
 
     // Get food days -----------------------------------------------------
     getFoodDays(userDocRef);
@@ -77,7 +90,6 @@ export const getFoodDays = async (userDocRef: any) => {
     .sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime());
 
     localStorage.setItem("food_days", JSON.stringify(foodDaysData));
-    console.log('Success!');
 }
 
 export const getWorkouts = async () => {
