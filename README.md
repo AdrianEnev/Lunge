@@ -1,1 +1,1 @@
-Web version of Lunge
+Уеб версия на Lunge (BETA)
