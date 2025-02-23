@@ -2,8 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import type { Route } from "./+types/Home";
 import { GlobalContext } from "~/GlobalContext";
 import { FIREBASE_AUTH } from "firebaseConfig";
-import HomeAuthenticated from "./Home/HomeAuthenticated";
-import HomeUnauthenticated from "./Home/HomeUnauthenticated";
+import HomeAuthenticated from "./HomePages/HomeAuthenticated";
+import HomeUnauthenticated from "./HomePages/HomeUnauthenticated";
 
 export function meta({}: Route.MetaArgs) {
     return [
