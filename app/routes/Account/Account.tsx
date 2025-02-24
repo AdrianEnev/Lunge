@@ -84,6 +84,15 @@ const Account = () => {
         setPasswordResetEmailSent(false)
     }
 
+    const clearLocalStorageExcept = (exceptions: string[]) => {
+        const keysToKeep = new Set(exceptions);
+        Object.keys(localStorage).forEach(key => {
+            if (!keysToKeep.has(key)) {
+                localStorage.removeItem(key);
+            }
+        });
+    };
+
     return (
         <div className="w-full h-full font-rubik p-5"> 
                 
@@ -209,7 +218,7 @@ const Account = () => {
                     }
 
                     FIREBASE_AUTH.signOut()
-                    localStorage.clear();
+                    clearLocalStorageExcept(['language'])
                     console.log('cleared storage')
                     navigate('/')
                 }}>

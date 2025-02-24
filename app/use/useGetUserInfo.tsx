@@ -23,10 +23,15 @@ export const getUserLoginInfo = async (user: any) => {
     }
 
     // Get the language -----------------------------------------------------
-    const languageDocRef = doc(userInfoCollectionRef, "language");
-    const language = await getDoc(languageDocRef);
-    if (language.exists()) {
-        localStorage.setItem("language", language.data().language);
+    // if localstorage contains language, do not retreive from database
+    // meaning the user has set language from the browser option or it's been set automatically
+    const languageLS = localStorage.getItem("language");
+    if (!languageLS) {
+        const languageDocRef = doc(userInfoCollectionRef, "language");
+        const language = await getDoc(languageDocRef);
+        if (language.exists()) {
+            localStorage.setItem("language", language.data().language);
+        }
     }
 
     // Get workout splits -----------------------------------------------------

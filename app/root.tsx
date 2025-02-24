@@ -9,14 +9,16 @@ ScrollRestoration,
 
 import type { Route } from "./+types/root";
 import stylesheet from "./app.css?url";
+//import i18n from "i18next-config";
+import '../i18next-config';
 
 import { useContext, useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
-import { FIREBASE_AUTH, FIRESTORE_DB } from "firebaseConfig";
+import { FIREBASE_AUTH } from "firebaseConfig";
 import SidebarAuthenticated from "./components/SidebarAuthenticated";
 import HeaderUnauthenticated from "./components/HeaderUnauthenticated";
 import { GlobalContext, GlobalProvider } from "./GlobalContext";
-import { collection, doc, onSnapshot } from "firebase/firestore";
+import { initReactI18next } from "react-i18next";
 
 export const links: Route.LinksFunction = () => [
     { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -53,8 +55,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
 function AppContent() {
 
     const { loading, setLoading } = useContext(GlobalContext) || { loading: false, setLoading: () => {} };
-
     const [isAuthenticated, setIsAuthenticated] = useState(FIREBASE_AUTH.currentUser ? true : false);
+
+    
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(FIREBASE_AUTH, (user) => {
