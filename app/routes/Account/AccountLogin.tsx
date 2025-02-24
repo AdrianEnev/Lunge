@@ -83,7 +83,6 @@ const Account = () => {
                             type="text"
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => setEmail(event.target.value)}
                             placeholder="example@gmail.com"
-                            defaultValue={'enevadrian@gmail.com'}
                             className='border border-gray-300 p-2 rounded-md'
                         />
                         
@@ -92,7 +91,6 @@ const Account = () => {
                             type="text"
                             onChange={(event: React.ChangeEvent<HTMLInputElement>) => setPassword(event.target.value)}
                             placeholder="SecurePassword123"
-                            defaultValue={'passwordpassword'}
                             className='border border-gray-300 p-2 rounded-md'
                         />
 

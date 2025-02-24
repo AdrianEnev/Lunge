@@ -62,7 +62,40 @@ export const getUserLoginInfo = async (user: any) => {
 
     // Get food days -----------------------------------------------------
     getFoodDays(userDocRef);
+    
+    // Get food days -----------------------------------------------------
+    getFriends(userInfoCollectionRef);
+    
+    // Get statistics -----------------------------------------------------
+    const statisticsDocRef = doc(userInfoCollectionRef, "statistics");
+    const statistics = await getDoc(statisticsDocRef);
 
+    if (statistics.exists()) {
+        const statisticsData = statistics.data();
+        const statisticsArray = [
+            { id: 'finishedWorkouts', value: statisticsData.finishedWorkouts },
+            { id: 'weightLifted', value: statisticsData.weightLifted }
+        ];
+        localStorage.setItem("statistics", JSON.stringify(statisticsArray));
+    }
+}
+
+const getFriends = async (userInfoCollectionRef: any) => {
+    const friendsDocRef = doc(userInfoCollectionRef, "friends");
+    const friendsListCollectionRef = collection(friendsDocRef, "list");
+    const friendsSnapshot = await getDocs(friendsListCollectionRef);
+
+    const friendsData = friendsSnapshot.docs
+        .map(doc => {
+            const data = doc.data();
+            return {
+                id: doc.id,
+                username: data.username || "Error!",
+            };
+        })
+        //.sort((a, b) => new Date(b.friendSince).getTime() - new Date(a.friendSince).getTime());
+
+    localStorage.setItem("friends", JSON.stringify(friendsData));
 }
 
 export const getFoodDays = async (userDocRef: any) => {
@@ -90,15 +123,4 @@ export const getFoodDays = async (userDocRef: any) => {
     .sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime());
 
     localStorage.setItem("food_days", JSON.stringify(foodDaysData));
-}
-
-export const getWorkouts = async () => {
-    const usersCollectionRef = collection(FIRESTORE_DB, "users");
-    const userDocRef = doc(usersCollectionRef, FIREBASE_AUTH.currentUser?.uid);
-    const userWorkoutsCollectionRef = collection(userDocRef, "workouts");
-
-    const userWorkoutsSnapshot = await getDocs(userWorkoutsCollectionRef);
-    const userWorkoutsData = userWorkoutsSnapshot.docs.map(doc => doc.data() as Workout);
-
-    return userWorkoutsData;
 }

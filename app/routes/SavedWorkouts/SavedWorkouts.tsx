@@ -97,7 +97,7 @@ const SavedWorkouts = () => {
             <div className='w-full h-[2px] bg-gray-100 rounded-full mt-2'></div>
             
 
-            <div className='w-full h-full border border-gray-200 rounded-md mt-4'>
+            <div className='w-full h-1/2 border border-gray-200 rounded-md mt-4'>
 
                 <div className={`flex flex-row justify-center gap-x-4 px-1 mt-2 mb-2 font-sans font-semibold`}>
                     <p className='w-1/3 text-center text-lg mr-[-24px]'>Title</p>

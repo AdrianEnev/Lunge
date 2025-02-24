@@ -6,7 +6,6 @@ export default [
     route('account', 'routes/Account/Account.tsx'),
     route('login', 'routes/Account/AccountLogin.tsx'),
     route('register', 'routes/Account/AccountRegister.tsx'),
-    route('info', 'routes/Info.tsx'),
     route('settings', 'routes/Settings.tsx'),
     route('workouts', 'routes/Workouts/Workouts.tsx'),
     route('workouts/workout/:workoutId', 'routes/Workouts/ViewWorkout.tsx'),
