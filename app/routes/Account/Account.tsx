@@ -7,6 +7,8 @@ import { changeUsername } from '~/use/useChangeUsername';
 import { GlobalContext } from '~/GlobalContext';
 import { sendPasswordResetEmail } from 'firebase/auth';
 import { collection, doc, getDoc, updateDoc } from 'firebase/firestore';
+import { useTranslation } from 'react-i18next';
+import i18n from 'i18next-config';
 
 const Account = () => {
 
@@ -22,6 +24,8 @@ const Account = () => {
     const [editModeEnabled, setEditModeEnabled] = useState(false)
 
     const [passwordResetEmailSent, setPasswordResetEmailSent] = useState(false)
+
+    const {t} = useTranslation();
 
     useEffect(() => {
 
@@ -97,11 +101,11 @@ const Account = () => {
         <div className="w-full h-full font-rubik p-5"> 
                 
             <p className="text-3xl text-black mt-5 font-semibold">
-                Profile
+                {t('profile')}
             </p>
 
             <div className='flex flex-row justify-between pr-4'>
-                <p className='text-lg font-medium mt-4'>User</p>
+                <p className='text-lg font-medium mt-4'>{t('user')}</p>
 
                 {(editModeEnabled && !loading) ? (
                     <div className='flex flex-row gap-x-3'>
@@ -115,7 +119,7 @@ const Account = () => {
                                 setUsername(oldUsername)
                             }}
                         >
-                            <p>Cancel</p>
+                            <p>{t('cancel')}</p>
                         </button>
 
                         <button 
@@ -133,21 +137,23 @@ const Account = () => {
                                 }
                             }}
                         >
-                            <p>Save</p>
+                            <p>{t('save')}</p>
                         </button>
 
                     </div>
                 ) : (!editModeEnabled && !loading) ? (
                     <button 
-                        className='w-[70px] h-8 border border-gray-200 
-                        shadow-md rounded-lg flex flex-row items-center justify-center 
-                        gap-x-2 active:opacity-60'
+                        className={
+                            `${i18n.language == "en" ? "w-[70px]" : "w-[90px]"} h-8 border border-gray-200 
+                            shadow-md rounded-lg flex flex-row items-center justify-center 
+                            gap-x-2 active:opacity-60`
+                        }
 
                         onClick={() => {
                             setEditModeEnabled(!editModeEnabled)
                         }}
                     >
-                        <p>Edit</p>
+                        <p>{t('edit')}</p>
                         <FontAwesomeIcon icon={faEdit} className='text-black mt-[-1px]'/>
                     </button>
                 ) : (
@@ -162,9 +168,9 @@ const Account = () => {
                 <div>
                     {!loading && (
                         <div  className={`flex flex-col ${editModeEnabled ? 'gap-y-6' : 'gap-y-6'}`}>
-                            <p>Email</p>
-                            <p>Username</p>
-                            <p>Password</p>
+                            <p>{t('email')}</p>
+                            <p>{t('username')}</p>
+                            <p>{t('password')}</p>
                         </div>
                     )}
                 </div>
@@ -191,7 +197,7 @@ const Account = () => {
                                 changePassword();
                             }}
                         >
-                            <p>Change Password</p>
+                            <p>{i18n.language == "en" ? "Change Password" : t('done')}</p>
                         </button>
                     </div>
                 ) : (!editModeEnabled && !loading) ? (
@@ -202,7 +208,7 @@ const Account = () => {
                     </div>
                 ) : (
                     <div>
-                        <p className='text-xl font-medium'>Loading</p>
+                        <p className='text-xl font-medium'>{t('loading')}</p>
                     </div>
                 )}
                     
@@ -222,7 +228,7 @@ const Account = () => {
                     console.log('cleared storage')
                     navigate('/')
                 }}>
-                    <p className='text-xl p-5 bg-red-400 rounded-xl text-white font-bold mt-3 shadow-md'>Logout</p>
+                    <p className='text-xl p-5 bg-red-400 rounded-xl text-white font-bold mt-3 shadow-md'>{t('logout')}</p>
                 </button>
             </div>
 

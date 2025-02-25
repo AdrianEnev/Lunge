@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { FixedSizeList as List } from 'react-window'
 import { timestampToDate } from '~/use/useTimestampToDate';
@@ -7,7 +8,7 @@ const Statistics = () => {
 
     const [statistics, setStatistics] = useState<any[]>([]);
     const statisticItems = [...statistics];
-    const navigate = useNavigate();
+    const {t} = useTranslation();
 
     useEffect(() => {
         const statisticsLS = localStorage.getItem("statistics");
@@ -32,13 +33,13 @@ const Statistics = () => {
             >
     
                 <p className='text-base w-1/3'>
-                    {statistic.id === 'finishedWorkouts' ? 'Finished Workouts' : 'Weight Lifted'}
+                    {statistic.id === 'finishedWorkouts' ? t('workouts') : t('total-weight-lifted')}
                 </p>
                 <p className='text-base w-1/3'>
-                    {statistic.value}
+                    {statistic.value} {statistic.id === 'weightLifted' ? 'kg' : ''}
                 </p>
                 <p className='text-base w-1/3'>
-                    {statistic.id === 'weightLifted' ? 'kg' : ''}
+                    -
                 </p>
 
             </button>
@@ -72,16 +73,16 @@ const Statistics = () => {
         <div className="w-full h-full font-rubik p-5"> 
                 
             <p className="text-3xl text-black mt-5 font-semibold">
-                Statistics
+                {t('statistics')}
             </p>
             <div className='w-full h-[2px] bg-gray-100 rounded-full mt-2'></div>
 
             <div className='w-full h-1/2 border border-gray-200 rounded-md mt-4'>
 
                 <div className={`flex flex-row justify-center gap-x-4 px-1 mt-2 mb-2 font-sans font-semibold`}>
-                    <p className='w-1/3 text-center text-lg mr-[-24px]'>Workouts Completed</p>
-                    <p className='w-1/3 text-center text-lg'>Total Weight Lifted</p>
-                    <p className='w-1/3 text-center text-lg ml-[-24px]'>Test Stat</p>
+                    <p className='w-1/3 text-center text-lg mr-[-24px]'>{t('workouts-completed')}</p>
+                    <p className='w-1/3 text-center text-lg'>{t('kilograms')}</p>
+                    <p className='w-1/3 text-center text-lg ml-[-24px]'>Test</p>
                 </div>
 
                 <List

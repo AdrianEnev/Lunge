@@ -8,6 +8,7 @@ import { FixedSizeList as List } from 'react-window';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import { collection, doc } from 'firebase/firestore';
+import { useTranslation } from 'react-i18next';
 
 interface FoodElementProps {
     food: any;
@@ -58,6 +59,8 @@ const FoodDay = ({ loaderData }: { loaderData: LoaderData }) => {
     const [loading, setLoading] = useState(true);
     const [foodDayEmpty, setFoodDayEmpty] = useState(false);
 
+    const {t} = useTranslation();
+
     useEffect(() => {
         const fetch = async () => {
             const foodDay = await getFoodDay(loaderData.foodDate, FIREBASE_AUTH.currentUser?.uid);
@@ -88,7 +91,7 @@ const FoodDay = ({ loaderData }: { loaderData: LoaderData }) => {
 
                 <div className='flex flex-row gap-x-3 '>
                     <p className="text-3xl font-medium">
-                        Food Log 
+                        {t('food-log')}
                     </p>
 
                     <p className='text-3xl text-gray-500'>
@@ -101,7 +104,7 @@ const FoodDay = ({ loaderData }: { loaderData: LoaderData }) => {
             <div className="mt-2 h-[calc(100vh-150px)] overflow-y-hidden">
                 {loading ? (
                     <div className='mt-2'>
-                        <p className='text-xl text-red-500'>Loading...</p>
+                        <p className='text-xl text-red-500'>{t('loading')}</p>
                     </div>
                 ) : (
                     (foodDay && !foodDayEmpty) ? (
@@ -112,12 +115,12 @@ const FoodDay = ({ loaderData }: { loaderData: LoaderData }) => {
 
                                     <div className='w-full h-full border border-gray-200 rounded-md mb-4'>
                                         <div className={`flex flex-row justify-center gap-x-4 px-1 mt-2 mb-2 font-sans font-semibold`}>
-                                            <p className='w-1/6 text-center text-lg mr-[-10px]'>Food</p>
-                                            <p className='w-1/6 text-center text-lg mr-[-10px]'>Grams</p>
-                                            <p className='w-1/6 text-center text-lg mr-[-10px]'>Calories</p>
-                                            <p className='w-1/6 text-center text-lg mr-[-10px]'>Protein</p>
-                                            <p className='w-1/6 text-center text-lg ml-[-10px]'>Carbs</p>
-                                            <p className='w-1/6 text-center text-lg mr-2'>Fat</p>
+                                            <p className='w-1/6 text-center text-lg mr-[-10px]'>{t('food-2')}</p>
+                                            <p className='w-1/6 text-center text-lg mr-[-10px]'>{t('grams')}</p>
+                                            <p className='w-1/6 text-center text-lg mr-[-10px]'>{t('calories')}</p>
+                                            <p className='w-1/6 text-center text-lg mr-[-10px]'>{t('protein')}</p>
+                                            <p className='w-1/6 text-center text-lg ml-[-10px]'>{t('carbs')}</p>
+                                            <p className='w-1/6 text-center text-lg mr-2'>{t('fat')}</p>
                                         </div>
 
                                         <List
@@ -140,7 +143,7 @@ const FoodDay = ({ loaderData }: { loaderData: LoaderData }) => {
                                         </List>
 
                                         <div className='w-full h-full border-[0.5px] border-gray-200'>
-                                            <p className='text-lg font-medium mx-2 my-1'>Total</p>
+                                            <p className='text-lg font-medium mx-2 my-1'>{t('total')}</p>
                                         </div>
 
                                         <FoodElement key={0} 
@@ -159,7 +162,7 @@ const FoodDay = ({ loaderData }: { loaderData: LoaderData }) => {
                         </div>
                     ) : (
                         <div className='mt-2'>
-                            <p className='text-xl text-red-500'>No data available</p>
+                            <p className='text-xl text-red-500'>{t('no-data-available')}</p>
                         </div>
                     )
                 )}

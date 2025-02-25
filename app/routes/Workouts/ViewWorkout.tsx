@@ -7,6 +7,7 @@ import { FixedSizeList as List } from 'react-window'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate } from 'react-router';
+import { useTranslation } from 'react-i18next';
 
 interface ExerciseElementProps {
     set: any
@@ -56,6 +57,8 @@ const ViewWorkout = ({loaderData}: { loaderData: LoaderData }) => {
 
     const [workout, setWorkout] = useState<Workout | null>(null)
 
+    const {t} = useTranslation();
+
     useEffect(() => {
         const fetch = async () => {
             const workout = await getWorkout(
@@ -102,9 +105,9 @@ const ViewWorkout = ({loaderData}: { loaderData: LoaderData }) => {
                                 <div className='w-full h-full border border-gray-200 rounded-md mb-4'>
 
                                     <div className={`flex flex-row justify-center gap-x-4 px-1 mt-2 mb-2 font-sans font-semibold`}>
-                                        <p className='w-1/3 text-center text-lg mr-[-24px]'>Set</p>
-                                        <p className='w-1/3 text-center text-lg'>Reps</p>
-                                        <p className='w-1/3 text-center text-lg ml-[-24px]'>Weight</p>
+                                        <p className='w-1/3 text-center text-lg mr-[-24px]'>{t('set')}</p>
+                                        <p className='w-1/3 text-center text-lg'>{t('reps')}</p>
+                                        <p className='w-1/3 text-center text-lg ml-[-24px]'>{t('weight')}</p>
                                     </div>
 
                                     <List
@@ -135,7 +138,7 @@ const ViewWorkout = ({loaderData}: { loaderData: LoaderData }) => {
                 
             ) : (
                 <div className='w-[90%] h-[80%] flex items-center justify-center'>
-                    <p className='text-4xl font-medium text-red-400'>Retreiving Workout...</p>
+                    <p className='text-4xl font-medium text-red-400'>{t('retreiving-workout')}</p>
                 </div>
             )}
         </div>

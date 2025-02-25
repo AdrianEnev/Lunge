@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { FixedSizeList as List } from 'react-window'
 import { timestampToDate } from '~/use/useTimestampToDate';
@@ -8,6 +9,8 @@ const Friends = () => {
     const [friends, setFriends] = useState<any[]>([])
     const friendItems = [...friends];
     const navigate = useNavigate();
+
+    const {t} = useTranslation();
 
     useEffect(() => {
         const friendsLS = localStorage.getItem("friends");
@@ -71,16 +74,16 @@ const Friends = () => {
         <div className="w-full h-full font-rubik p-5"> 
                 
             <p className="text-3xl text-black mt-5 font-semibold">
-                Friends
+                {t('friends')}
             </p>
             <div className='w-full h-[2px] bg-gray-100 rounded-full mt-2'></div>
 
             <div className='w-full h-1/2 border border-gray-200 rounded-md mt-4'>
 
                 <div className={`flex flex-row justify-center gap-x-4 px-1 mt-2 mb-2 font-sans font-semibold`}>
-                    <p className='w-1/3 text-center text-lg mr-[-24px]'>Username</p>
-                    <p className='w-1/3 text-center text-lg'>Friend Since</p>
-                    <p className='w-1/3 text-center text-lg ml-[-24px]'>Workouts completed</p>
+                    <p className='w-1/3 text-center text-lg mr-[-24px]'>{t('username')}</p>
+                    <p className='w-1/3 text-center text-lg'>{t('friend-since')}</p>
+                    <p className='w-1/3 text-center text-lg ml-[-24px]'>{t('workouts-completed')}</p>
                 </div>
 
                 <List

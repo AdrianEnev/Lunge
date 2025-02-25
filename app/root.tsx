@@ -57,8 +57,6 @@ function AppContent() {
     const { loading, setLoading } = useContext(GlobalContext) || { loading: false, setLoading: () => {} };
     const [isAuthenticated, setIsAuthenticated] = useState(FIREBASE_AUTH.currentUser ? true : false);
 
-    
-
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(FIREBASE_AUTH, (user) => {
 
@@ -110,7 +108,7 @@ function AppContent() {
 
             <div className="flex flex-row w-full h-full">
 
-                <div className={`${isAuthenticated ? "w-[14%]" : "w-0"} h-full `}>
+                <div className={`${isAuthenticated ? "min-w-[14%]" : "w-0"} h-full`}>
                     {isAuthenticated ? (
                         <SidebarAuthenticated />
                     ) : (

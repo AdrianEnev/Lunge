@@ -1,5 +1,6 @@
 import type { SavedWorkout } from 'interfaces';
 import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { FixedSizeList as List } from 'react-window'
 import { timestampToDate } from '~/use/useTimestampToDate';
@@ -10,6 +11,8 @@ const SavedWorkouts = () => {
     const savedWorkoutItems = [...savedWorkouts]
 
     const navigate = useNavigate();
+
+    const {t} = useTranslation();
 
     useEffect(() => {
 
@@ -33,7 +36,7 @@ const SavedWorkouts = () => {
 
     const SavedWorkoutElement = ({workout, navigate}: any) => {
 
-        const workoutDate = timestampToDate(workout.created)
+        const workoutDate = timestampToDate(workout.created).split(' ')[0].slice(0, -1)
     
         return (
             <button
@@ -61,7 +64,7 @@ const SavedWorkouts = () => {
                 </p>
                 
                 <p className='text-base w-1/3'>
-                    {workout.duration} seconds
+                    {workout.duration} {t('seconds')}
                 </p>
 
             </button>
@@ -92,17 +95,16 @@ const SavedWorkouts = () => {
         <div className="w-full h-full font-rubik p-5"> 
                 
             <p className="text-3xl text-black mt-5 font-semibold">
-                Completed Workouts
+                {t('workouts-completed')}
             </p>
             <div className='w-full h-[2px] bg-gray-100 rounded-full mt-2'></div>
             
-
             <div className='w-full h-1/2 border border-gray-200 rounded-md mt-4'>
 
                 <div className={`flex flex-row justify-center gap-x-4 px-1 mt-2 mb-2 font-sans font-semibold`}>
-                    <p className='w-1/3 text-center text-lg mr-[-24px]'>Title</p>
-                    <p className='w-1/3 text-center text-lg'>Created on</p>
-                    <p className='w-1/3 text-center text-lg ml-[-24px]'>Duration</p>
+                    <p className='w-1/3 text-center text-lg mr-[-24px]'>{t('title')}</p>
+                    <p className='w-1/3 text-center text-lg'>{t('created-on')}</p>
+                    <p className='w-1/3 text-center text-lg ml-[-24px]'>{t('duration')}</p>
                 </div>
 
                 <List

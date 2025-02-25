@@ -11,6 +11,8 @@ const HeaderUnauthenticated = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(FIREBASE_AUTH.currentUser ? true : false);
     const [language, setLanguage] = useState(i18n.language);
 
+    const {t} = useTranslation();
+
     useEffect(() => {
         FIREBASE_AUTH.onAuthStateChanged((user) => {
             if (user) {
@@ -23,14 +25,11 @@ const HeaderUnauthenticated = () => {
 
     const navigate = useNavigate();
 
-    const {t} = useTranslation();
-
     const changeLanguage = () => {
         const newLanguage = language === 'en' ? 'bg' : 'en';
         i18n.changeLanguage(newLanguage);
         setLanguage(newLanguage);
     }
-
 
     return (
         <div className='w-auto h-16 m-2 mt-3 px-1 flex items-center font-rubik'>
@@ -59,7 +58,7 @@ const HeaderUnauthenticated = () => {
                         
                     }}>
                         <p className='text-lg text-black font-medium hover:opacity-60 flex flex-row gap-x-2'>
-                            Sign in &gt;
+                            {t('sign-in')} &gt;
                         </p>
                     </button>
 
@@ -69,7 +68,7 @@ const HeaderUnauthenticated = () => {
                             navigate('/contact')
                         }}
                     >
-                        <p className='text-base font-medium text-white'>Contact</p>
+                        <p className='text-base font-medium text-white'>{t('contact')}</p>
                     </button>
                 </div>
 
