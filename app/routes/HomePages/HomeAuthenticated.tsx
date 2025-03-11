@@ -21,7 +21,7 @@ const HomeAuthenticated = ({username}: any) => {
                 
 
                 <p className="text-3xl text-black mt-5 font-base">
-                    {i18n.language == "en" ? "All account information will be displayed here." : "Всякаква информация за акаунта ви ще бъде показана тук."}
+                    {i18n.language == "en" ? "All account information will be displayed here." : "Всякаква информация за акаунта ти ще бъде показана тук."}
                 </p>  
             </div>
         

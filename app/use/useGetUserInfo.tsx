@@ -7,35 +7,67 @@ export const getUserLoginInfo = async (user: any) => {
     const usersCollectionRef = collection(FIRESTORE_DB, "users");
     const userDocRef = doc(usersCollectionRef, user.uid);
     const userInfoCollectionRef = collection(userDocRef, "user_info");
-    
-    // Get the username -----------------------------------------------------
-    const usernameDocRef = doc(userInfoCollectionRef, "username");
-    const username = await getDoc(usernameDocRef);
-    if (username.exists()) {
-        localStorage.setItem("username", username.data().username);
-    }   
 
-    // Get the daily goals  -----------------------------------------------------
+    console.log('Retreiving info...')
+
+    getLanguage(userInfoCollectionRef);
+    getWorkouts(userDocRef);
+    getSavedWorkouts(userDocRef);
+    getFoodDays(userDocRef);
+    getFriends(userInfoCollectionRef);
+    getStatistics(userInfoCollectionRef);
+    getUsername(userInfoCollectionRef);
+    getDailyGoals(userInfoCollectionRef);
+
+    console.log('Everything was retreived successfuly');
+    
+}
+
+const getDailyGoals = async (userInfoCollectionRef: any) => {
     const dailyGoalsDocRef = doc(userInfoCollectionRef, "nutrients");
     const dailyGoals = await getDoc(dailyGoalsDocRef);
+
     if (dailyGoals.exists()) {
         localStorage.setItem("dailyGoals", JSON.stringify(dailyGoals.data()));
     }
+}
 
-    // Get the language -----------------------------------------------------
-    // if localstorage contains language, do not retreive from database
-    // meaning the user has set language from the browser option or it's been set automatically
-    const languageLS = localStorage.getItem("language");
-    if (!languageLS) {
-        const languageDocRef = doc(userInfoCollectionRef, "language");
-        const language = await getDoc(languageDocRef);
-        if (language.exists()) {
-            localStorage.setItem("language", language.data().language);
-        }
+const getUsername = async (userInfoCollectionRef: any) => {
+    const usernameDocRef = doc(userInfoCollectionRef, "username");
+    const username = await getDoc(usernameDocRef);
+
+    if (username.exists()) {
+        localStorage.setItem("username", username.data().username);
     }
+}
 
-    // Get workout splits -----------------------------------------------------
-    // if contains folderId -> add to corresponding folder
+// if localstorage contains language, do not retreive from database
+// meaning the user has set language from the browser option or it's been set automatically
+const getLanguage = async (userInfoCollectionRef: any) => {
+    const languageDocRef = doc(userInfoCollectionRef, "language");
+    const language = await getDoc(languageDocRef);
+
+    if (language.exists()) {
+        localStorage.setItem("language", language.data().language);
+    }
+}
+
+const getStatistics = async (userInfoCollectionRef: any) => {
+    const statisticsDocRef = doc(userInfoCollectionRef, "statistics");
+    const statistics = await getDoc(statisticsDocRef);
+
+    if (statistics.exists()) {
+        const statisticsData = statistics.data();
+        const statisticsArray = [
+            { id: 'finishedWorkouts', value: statisticsData.finishedWorkouts },
+            { id: 'weightLifted', value: statisticsData.weightLifted }
+        ];
+        localStorage.setItem("statistics", JSON.stringify(statisticsArray));
+    }
+}
+
+// if contains folderId -> add to corresponding folder
+const getWorkouts = async (userDocRef: any) => {
     const workoutsCollectionRef = collection(userDocRef, "workouts");
     const workoutsSnapshot = await getDocs(workoutsCollectionRef);
     const workoutsData = workoutsSnapshot.docs
@@ -50,8 +82,9 @@ export const getUserLoginInfo = async (user: any) => {
         .sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime());
 
     localStorage.setItem("workouts", JSON.stringify(workoutsData));
+}
 
-    // Get saved workout splits -----------------------------------------------------
+const getSavedWorkouts = async (userDocRef: any) => {
     const savedWorkoutsCollectionRef = collection(userDocRef, "saved_workouts");
     const savedWorkoutsSnapshot = await getDocs(savedWorkoutsCollectionRef);
     const savedWorkoutsData = savedWorkoutsSnapshot.docs
@@ -64,25 +97,6 @@ export const getUserLoginInfo = async (user: any) => {
         .sort((a, b) => new Date(b.created).getTime() - new Date(a.created).getTime());
 
     localStorage.setItem("saved_workouts", JSON.stringify(savedWorkoutsData));
-
-    // Get food days -----------------------------------------------------
-    getFoodDays(userDocRef);
-    
-    // Get food days -----------------------------------------------------
-    getFriends(userInfoCollectionRef);
-    
-    // Get statistics -----------------------------------------------------
-    const statisticsDocRef = doc(userInfoCollectionRef, "statistics");
-    const statistics = await getDoc(statisticsDocRef);
-
-    if (statistics.exists()) {
-        const statisticsData = statistics.data();
-        const statisticsArray = [
-            { id: 'finishedWorkouts', value: statisticsData.finishedWorkouts },
-            { id: 'weightLifted', value: statisticsData.weightLifted }
-        ];
-        localStorage.setItem("statistics", JSON.stringify(statisticsArray));
-    }
 }
 
 const getFriends = async (userInfoCollectionRef: any) => {

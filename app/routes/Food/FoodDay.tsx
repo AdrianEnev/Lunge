@@ -7,7 +7,7 @@ import { getFoodDay } from '~/use/useGetFoodDay';
 import { FixedSizeList as List } from 'react-window';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { collection, doc } from 'firebase/firestore';
+import { collection, doc, deleteDoc } from 'firebase/firestore';
 import { useTranslation } from 'react-i18next';
 
 interface FoodElementProps {
@@ -61,8 +61,31 @@ const FoodDay = ({ loaderData }: { loaderData: LoaderData }) => {
 
     const {t} = useTranslation();
 
+    // if food day contains 1 or more items but no total, delete all documents
+    const checkDeleteEmptyFoodDay = async (foodDay: any) => {
+
+        console.log(foodDay)
+
+        if (!foodDay.calories || !foodDay.protein || !foodDay.carbs || !foodDay.fat) {
+            
+            const usersCollectionRef = collection(FIRESTORE_DB, 'users');
+            const userDocRef = doc(usersCollectionRef, FIREBASE_AUTH.currentUser?.uid);
+            const foodDaysCollectionRef = collection(userDocRef, 'food_days');
+            const foodDayDocRef = doc(foodDaysCollectionRef, foodDay.title);
+
+            await deleteDoc(foodDayDocRef);
+            console.log('empty - deleted')
+
+            // also remove from local storage if needed
+        }
+        console.log('not empty')
+
+    }
+
     useEffect(() => {
         const fetch = async () => {
+
+            // get food day
             const foodDay = await getFoodDay(loaderData.foodDate, FIREBASE_AUTH.currentUser?.uid);
             setFoodDay(foodDay);
             setDate(loaderData.foodDate);
@@ -72,6 +95,11 @@ const FoodDay = ({ loaderData }: { loaderData: LoaderData }) => {
             if (!foodDay?.calories && !foodDay?.protein && !foodDay?.carbs && !foodDay?.fat) {
                 setFoodDayEmpty(true)
             }
+            
+            if (!foodDay) return;
+
+            // if empty -> delete day
+            checkDeleteEmptyFoodDay(foodDay);
         };
 
         fetch();

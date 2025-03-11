@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router';
 import { FixedSizeList as List } from 'react-window'
-import { timestampToDate } from '~/use/useTimestampToDate';
 
 const Statistics = () => {
 
@@ -32,14 +31,11 @@ const Statistics = () => {
                 }}
             >
     
-                <p className='text-base w-1/3'>
-                    {statistic.id === 'finishedWorkouts' ? t('workouts') : t('total-weight-lifted')}
+                <p className='text-base w-1/2'>
+                    {statistic.id === 'finishedWorkouts' ? t('workouts-completed') : t('total-weight-lifted')}
                 </p>
-                <p className='text-base w-1/3'>
+                <p className='text-base w-1/2'>
                     {statistic.value} {statistic.id === 'weightLifted' ? 'kg' : ''}
-                </p>
-                <p className='text-base w-1/3'>
-                    -
                 </p>
 
             </button>
@@ -80,9 +76,8 @@ const Statistics = () => {
             <div className='w-full h-1/2 border border-gray-200 rounded-md mt-4'>
 
                 <div className={`flex flex-row justify-center gap-x-4 px-1 mt-2 mb-2 font-sans font-semibold`}>
-                    <p className='w-1/3 text-center text-lg mr-[-24px]'>{t('workouts-completed')}</p>
-                    <p className='w-1/3 text-center text-lg'>{t('kilograms')}</p>
-                    <p className='w-1/3 text-center text-lg ml-[-24px]'>Test</p>
+                    <p className='w-1/2 text-center text-lg mr-[-24px]'>{t('statistics')}</p>
+                    <p className='w-1/2 text-center text-lg'>{t('values')}</p>
                 </div>
 
                 <List
@@ -91,7 +86,6 @@ const Statistics = () => {
                     itemCount={statisticItems.length}
                     itemSize={40}
                     layout="vertical"
-                    
                 >
                     {StatisticsRenderer}
                 </List>

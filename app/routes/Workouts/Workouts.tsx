@@ -133,18 +133,25 @@ const Workouts = () => {
     const selectedFolderWorkoutItems = [...selectedFolderWorkouts]
 
     const WorkoutsRenderer = ({ index, style }: { index: number, style: React.CSSProperties }) => {
-
+        
+        if (workoutItems.length === 0) {
+            return (
+                <div style={style}>
+                    <p className='text-center text-gray-500'>{t('no-workouts')}</p>
+                </div>
+            )
+        }
+    
         const sortedWorkoutItems = workoutItems.sort((a, b): any => {
-
             if (a.created && b.created) {
                 const dateA = new Date(a.created.seconds * 1000)
                 const dateB = new Date(b.created.seconds * 1000)
                 return dateB.getTime() - dateA.getTime()
             }
         })
-
+    
         const item = sortedWorkoutItems[index] || workoutItems[index]
-
+    
         return (
             <div style={style}>
                 <WorkoutElement key={item.id} {...item} workout={item} navigate={navigate} />
@@ -191,7 +198,7 @@ const Workouts = () => {
             setScreenHeight(getScreenHeight());
             setScreenWidth(getScreenWidth());
         };
-        console.log(screenHeight, screenWidth)
+        //console.log(screenHeight, screenWidth)
 
         window.addEventListener('resize', handleResize);
 
@@ -219,49 +226,58 @@ const Workouts = () => {
             <div className='w-full h-[2px] bg-gray-100 rounded-full mt-2'></div>
 
             <div className='flex flex-row justify-between mt-2 mb-1 px-2'>
-
-                <div className='flex flex-row'>
-                    {selectedFolderWorkouts.length !== 0 && (
-                        <button className='pt-2 px-2'
-                        onClick={() => {
-                            setSelectedFolderWorkouts([])
-                        }}>
-                        <FontAwesomeIcon icon={faArrowLeft} className='w-5 h-5 font-medium text-gray-700'/>
-                        </button>
-                    )}
-                    <p className='text-xl font-medium text-yellow-400 w-[49%] mt-[6px]'>{t('folders')}</p>
-                </div>
+                
+                {selectedFolderWorkoutItems.length > 0 && 
+                    <div className='flex flex-row'>
+                        {selectedFolderWorkouts.length !== 0 && (
+                            <button className='pt-2 px-2'
+                            onClick={() => {
+                                setSelectedFolderWorkouts([])
+                            }}>
+                            <FontAwesomeIcon icon={faArrowLeft} className='w-5 h-5 font-medium text-gray-700'/>
+                            </button>
+                        )}
+                        <p className='text-xl font-medium text-yellow-400 w-[49%] mt-[6px]'>{t('folders')}</p>
+                    </div>
+                }
                 
                 <p className={`text-xl font-medium text-red-400 w-[49%] mt-[6px] ${screenWidth > 1050 ? "" : "hidden"}`}>{t('workouts')}</p>
             </div>
-
+            
             <div className={`flex ${screenWidth > 1050 ? "flex-row" : "flex-col"} w-full h-[60%] gap-x-2`}>
-                <div className={`
-                    w-[49%] h-full border border-gray-200 rounded-md
-                `}>
-                    <div className={`flex flex-row justify-center gap-x-4 px-1 mt-2 mb-2 font-sans font-semibold`}>
-                        <p className='w-1/3 text-center text-lg mr-[-24px]'>{t('title')}</p>
-                        <p className='w-1/3 text-center text-lg'>{t('created-on')}</p>
-                        <p className='w-1/3 text-center text-lg ml-[-24px]'>{t('workouts')}</p>
-                    </div>
 
-                    <List
-                        height={410}
-                        width={'100%'}
-                        itemCount={selectedFolderWorkouts.length === 0 ? folderItems.length : selectedFolderWorkoutItems.length}
-                        itemSize={40}
-                        layout="vertical"
-                        
-                    >
-                        {selectedFolderWorkouts.length === 0 ? FoldersRenderer : SelectedFolderWorkoutsRenderer}
-                    </List>
+                {selectedFolderWorkoutItems.length > 0 && 
+                    (
+                        <div className={`
+                            w-[49%] h-full border border-gray-200 rounded-md
+                        `}>
+                            <div className={`flex flex-row justify-center gap-x-4 px-1 mt-2 mb-2 font-sans font-semibold`}>
+                                <p className='w-1/3 text-center text-lg mr-[-24px]'>{t('title')}</p>
+                                <p className='w-1/3 text-center text-lg'>{t('created-on')}</p>
+                                <p className='w-1/3 text-center text-lg ml-[-24px]'>{t('workouts')}</p>
+                            </div>
+        
+                            <List
+                                height={410}
+                                width={'100%'}
+                                itemCount={selectedFolderWorkouts.length === 0 ? folderItems.length : selectedFolderWorkoutItems.length}
+                                itemSize={40}
+                                layout="vertical"
+                                
+                            >
+                                {selectedFolderWorkouts.length === 0 ? FoldersRenderer : SelectedFolderWorkoutsRenderer}
+                            </List>
+        
+                        </div>
+                    )
+                }
 
-                </div>
+                
 
                 <p className={`text-xl font-medium text-red-400 w-[49%] mt-[6px] 
                     ${screenWidth > 1050 ? "hidden" : ""}`}>{t('workouts')}</p>
 
-                <div className='w-[49%] h-full border border-gray-200 rounded-md'>
+                <div className={`${selectedFolderWorkoutItems.length > 0 ? "w-[49%]" : "w-full"} h-full border border-gray-200 rounded-md`}>
 
                     <div className={`flex flex-row justify-center gap-x-4 px-1 mt-2 mb-2 font-sans font-semibold`}>
                         <p className='w-1/3 text-center text-lg mr-[-24px]'>{t('title')}</p>

@@ -47,9 +47,10 @@
     "fat": "Мазнини",
     "total": "Общо",
     "no-data-available": "Няма информация за този ден!",
-    "total-weight-lifted": "Вдигнат килограми",
+    "total-weight-lifted": "Вдигнати килограми",
     "kilograms": "Килограми",
     "daily-goals": "Дневни цели",
     "language": "Език",
-    "seconds": "Секунди"
+    "seconds": "Секунди",
+    "values": "Стойности"
 }

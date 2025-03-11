@@ -6,14 +6,7 @@ import i18n from 'i18next-config';
 import type { GoalNutrients } from 'interfaces'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next';
-import { changeDailyGoal } from '~/use/useChangeDailyGoal';
-
-interface DailyGoalsElementProps {
-    dailyGoal: any;
-    index: number;
-    selectedNutrient: string;
-    setSelectedNutrient: (nutrient: string) => void;
-}
+import DailyGoalsElement from '~/components/DailyGoalsElement';
 
 const Settings = () => {
     
@@ -24,48 +17,6 @@ const Settings = () => {
     const [language, setLanguage] = useState(i18n.language);
 
     const {t} = useTranslation();
-
-    const DailyGoalsElement = ({ dailyGoal, index, selectedNutrient, setSelectedNutrient }: DailyGoalsElementProps) => {
-
-        return (
-            <div
-                className={`w-full h-10 text-gray-600 border-y border-gray-100 px-3 
-                flex flex-row items-center
-               `}
-            >
-                {['calories', 'protein', 'carbs', 'fat'].map((nutrient) => (
-                    <button
-                        key={nutrient}
-                        className={`text-base w-1/4 hover:opacity-50 
-                            ${selectedNutrient === nutrient ? 'text-red-400' : ''}
-                        `}
-                        onClick={() => setSelectedNutrient(nutrient)}
-                    >
-                        {selectedNutrient === nutrient ? (
-                            <input
-                                type="text"
-                                defaultValue={dailyGoal[nutrient]}
-                                className="w-full text-center border-none outline-none"
-                                onBlur={(e) => {
-                                    setSelectedNutrient('')
-                                    changeDailyGoal(nutrient, dailyGoals, e.target.value)
-                                }}
-                                onKeyDown={(e) => {
-                                    if (e.key === 'Enter') {
-                                        setSelectedNutrient('')
-                                        changeDailyGoal(nutrient, dailyGoals, e.currentTarget.value)
-                                    }
-                                }}
-                                maxLength={selectedNutrient === 'calories' ? 4 : 3}
-                            />
-                        ) : (
-                            <p>{dailyGoal[nutrient]}</p>
-                        )}
-                    </button>
-                ))}
-            </div>
-        );
-    };
 
     const dailyGoalsLS = localStorage.getItem('dailyGoals')
 
@@ -113,7 +64,7 @@ const Settings = () => {
                                     <div className='w-full'>
                                         <p className='text-xl text-gray-700 mt-4 mb-2 font-medium'>{t('daily-goals')}</p>
 
-                                        <div className='w-[49%] h-full border border-gray-200 rounded-md mb-4'>
+                                        <div className='w-full h-full border border-gray-200 rounded-md mb-4'>
                                             <div className={`flex flex-row justify-center gap-x-4 px-1 mt-2 mb-2 font-sans font-semibold`}>
                                                 <p className='w-1/4 text-center text-lg mr-[-20px]'>{t('calories')}</p>
                                                 <p className='w-1/4 text-center text-lg mr-[-20px]'>{t('protein')}</p>
@@ -128,6 +79,7 @@ const Settings = () => {
                                                     key={dailyGoal.id}
                                                     selectedNutrient={selectedNutrient}
                                                     setSelectedNutrient={setSelectedNutrient}
+                                                    dailyGoals={dailyGoals}
                                                 />
                                             ))}
 

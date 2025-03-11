@@ -100,7 +100,7 @@ const Account = () => {
                         <button className='w-full h-12 bg-red-400 mt-3 rounded-xl active:opacity-60'
                             onClick={handleLogin}
                         >
-                            <p className='text-xl font-medium text-white'>{i18n.language == "en" ? t('sign-ign') : t('done')}</p>
+                            <p className='text-xl font-medium text-white'>{i18n.language == "en" ? t('sign-in') : t('done')}</p>
                         </button>
 
                     </div>
