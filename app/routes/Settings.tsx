@@ -1,10 +1,8 @@
 import { faLanguage } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { collection, doc } from 'firebase/firestore';
-import { FIREBASE_AUTH, FIRESTORE_DB } from 'firebaseConfig';
 import i18n from 'i18next-config';
 import type { GoalNutrients } from 'interfaces'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next';
 import DailyGoalsElement from '~/components/DailyGoalsElement';
 
