@@ -17,6 +17,7 @@ const Friends = () => {
 
         if (friendsLS) {
             setFriends(JSON.parse(friendsLS));
+            console.log(JSON.parse(friendsLS))
         }
     }, [])
 

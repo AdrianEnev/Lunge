@@ -27,7 +27,7 @@ const SidebarAuthenticated = () => {
         const handleResize = () => {
             setScreenHeight(getScreenHeight());
         };
-        console.log(screenHeight)
+        //console.log(screenHeight)
 
         window.addEventListener('resize', handleResize);
 

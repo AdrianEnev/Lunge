@@ -17,18 +17,9 @@ const Account = () => {
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
 
-    const [isAuthenticated, setIsAuthenticated] = useState(FIREBASE_AUTH.currentUser ? true : false)
+    //const [isAuthenticated, setIsAuthenticated] = useState(FIREBASE_AUTH.currentUser ? true : false)
 
     const {setLoading} = useContext(GlobalContext) || {setLoading: () => {console.log('error')}}
-
-    /*useEffect(() => {
-
-        if (isAuthenticated) {
-            navigate('/account')
-        }
-
-    }, [isAuthenticated])*/
-
 
     const handleFirebaseLogin = (email: string, password: string) => {
 

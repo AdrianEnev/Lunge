@@ -7,7 +7,7 @@ import checkUsernameNSFW from '~/use/useCheckUsernameNSFW'
 
 const AccountRegister = () => {
 
-    const [isAuthenticated, setIsAuthenticated] = useState(FIREBASE_AUTH.currentUser ? true : false)
+    //const [isAuthenticated, setIsAuthenticated] = useState(FIREBASE_AUTH.currentUser ? true : false)
 
     const navigate = useNavigate();
 

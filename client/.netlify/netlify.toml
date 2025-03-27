@@ -1,0 +1,46 @@
+functionsDirectory = "/Users/adrian/Desktop/Lunge/lunge_code/fitness-tracker-web/netlify/functions"
+functionsDirectoryOrigin = "ui"
+redirectsOrigin = "config"
+plugins = []
+headers = []
+
+[dev]
+command = "react-router dev"
+
+[functions]
+
+[functions."*"]
+
+[build]
+publish = "/Users/adrian/Desktop/Lunge/lunge_code/fitness-tracker-web/build/client"
+publishOrigin = "config"
+commandOrigin = "config"
+command = "react-router build"
+functions = "/Users/adrian/Desktop/Lunge/lunge_code/fitness-tracker-web/netlify/functions"
+
+[build.environment]
+NODE_VERSION = "22.9.0"
+
+[build.processing]
+
+[build.processing.css]
+
+[build.processing.html]
+
+[build.processing.images]
+
+[build.processing.js]
+
+[build.services]
+
+[[redirects]]
+from = "/*"
+to = "/index.html"
+status = 200.0
+force = false
+
+[redirects.query]
+
+[redirects.conditions]
+
+[redirects.headers]

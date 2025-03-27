@@ -54,19 +54,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 function AppContent() {
 
-    const [testBackendData, setTestBackEndData] = useState([{}]);
-    
-    useEffect(() => {
-        fetch("/api")
-            .then((res) => res.json()) // Return the parsed JSON
-            .then((data) => {
-                setTestBackEndData(data); // Update state with the fetched data
-            })
-            .catch((error) => {
-                console.error("Error fetching data:", error); // Handle errors
-            });
-    }, []);
-
     const { loading, setLoading } = useContext(GlobalContext) || { loading: false, setLoading: () => {} };
     const [isAuthenticated, setIsAuthenticated] = useState(FIREBASE_AUTH.currentUser ? true : false);
 

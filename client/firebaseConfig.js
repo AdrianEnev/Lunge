@@ -14,7 +14,6 @@ const firebaseConfig = {
     measurementId: import.meta.env.VITE_REACT_APP_MEASUREMENT_ID
   };
   
-  
 // Initialize Firebase
 const FIREBASE_APP = initializeApp(firebaseConfig);
 export const FIRESTORE_DB = getFirestore(FIREBASE_APP);
