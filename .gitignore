@@ -1,41 +1,39 @@
-# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
+# Node.js dependencies
+**/node_modules/
 
-# dependencies
-node_modules/
+# Build outputs
+**/dist/
+**/build/
+apps/mobile/web-build/
+apps/mobile/.expo/
 
-# Expo
-.expo/
-dist/
-web-build/
+# Environment variables
+**/.env*
+apps/backend/config/*.json
 
-# Native
-*.orig.*
-*.jks
-*.p8
-*.p12
-*.key
-*.mobileprovision
+# Mobile-specific
+ REMOVED DUE TO SECRETS
+apps/mobile/eas.json
+apps/mobile/*.orig.*
+apps/mobile/*.jks
+apps/mobile/*.p8
+apps/mobile/*.p12
+apps/mobile/*.key
+apps/mobile/*.mobileprovision
+apps/mobile/.metro-health-check*
 
-# Metro
-.metro-health-check*
+# Debug and logs
+**/npm-debug.*
+**/yarn-debug.*
+**/yarn-error.*
+**/*.log
 
-# debug
-npm-debug.*
-yarn-debug.*
-yarn-error.*
-
-# macOS
-.DS_Store
-*.pem
-
-# local env files
-.env*.local
-
-# typescript
-*.tsbuildinfo
-
-.env
-
-render.yaml
-
-eas.json
+# System and IDE files
+**/.DS_Store
+**/Thumbs.db
+**/.vscode/
+**/.idea/
+**/*.tmp
+**/*.swp
+**/*.tsbuildinfo
+**/*.pem
