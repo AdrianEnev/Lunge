@@ -17,7 +17,7 @@ const deleteFood = async (
 
     // Remove from firebase
     try {
-        const response = await fetch(`http://localhost:3000/api/foodDays/${userId}/${formattedDate}`, {
+        const response = await fetch(`${process.env.EXPO_PUBLIC_BACKEND_URL}/foodDays/${userId}/${formattedDate}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json', 

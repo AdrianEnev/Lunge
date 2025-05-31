@@ -4,7 +4,7 @@
 const searchForFriend = async (search: string) => {
     
     try {
-        const response = await fetch(`http://localhost:3000/api/global/searchFriend?search=${search}`, {
+        const response = await fetch(`${process.env.EXPO_PUBLIC_BACKEND_URL}/global/searchFriend?search=${search}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json', // Specifies the request body is JSON

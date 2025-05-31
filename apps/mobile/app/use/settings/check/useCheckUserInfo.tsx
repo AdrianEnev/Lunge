@@ -31,7 +31,7 @@ export const checkUsernamesMatch = async () => {
 
     try {
         // Get firebase username
-        const response = await fetch(`http://localhost:3000/api/users/${userId}/username`, {
+        const response = await fetch(`${process.env.EXPO_PUBLIC_BACKEND_URL}/users/${userId}/username`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json', // Specifies the request body is JSON
@@ -70,7 +70,7 @@ export const checkUsernameDoc = async () => {
     
     try {
         // Get firebase username
-        const response = await fetch(`http://localhost:3000/api/users/${userId}/username`, {
+        const response = await fetch(`${process.env.EXPO_PUBLIC_BACKEND_URL}/users/${userId}/username`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json', // Specifies the request body is JSON
@@ -105,7 +105,7 @@ const setFirebaseUsername = async (username: string) => {
     
     try {
         // Get firebase username
-        const response = await fetch(`http://localhost:3000/api/users/${userId}/username?username=${username}`, {
+        const response = await fetch(`${process.env.EXPO_PUBLIC_BACKEND_URL}/users/${userId}/username?username=${username}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json', // Specifies the request body is JSON

@@ -3,7 +3,7 @@ import { presentPaymentSheet } from "@stripe/stripe-react-native";
 import { Alert } from "react-native";
 import { addLungeCoins } from "@use/settings/useHandleLungeCoins";
 
-const API_URL = 'http://localhost:3000/api/stripe';
+const API_URL = '${process.env.EXPO_PUBLIC_BACKEND_URL}/stripe';
 
 export const initializePaymentSheet = async (initPaymentSheet: any, price: number) => {
 

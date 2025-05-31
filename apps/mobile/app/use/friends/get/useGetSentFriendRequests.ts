@@ -5,7 +5,7 @@ const getSentFriendRequests = async () => {
     const userId = FIREBASE_AUTH.currentUser?.uid;
 
     try {
-        const response = await fetch(`http://localhost:3000/api/friends/${userId}/sent`);
+        const response = await fetch(`${process.env.EXPO_PUBLIC_BACKEND_URL}/friends/${userId}/sent`);
         
         //console.log('Response received: ', response);
 

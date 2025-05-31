@@ -62,7 +62,7 @@ const Settings = ({navigation}: any) => {
             const userId = FIREBASE_AUTH.currentUser?.uid;
 
             try {
-                const response = await fetch(`http://localhost:3000/api/users/${userId}/dailyGoals`, {
+                const response = await fetch(`${process.env.EXPO_PUBLIC_BACKEND_URL}/users/${userId}/dailyGoals`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json', // Specifies the request body is JSON

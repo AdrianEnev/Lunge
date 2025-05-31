@@ -24,7 +24,7 @@ const retreiveInfo = async (
     const userId = FIREBASE_AUTH.currentUser?.uid;
 
     try {
-        const response = await fetch(`http://localhost:3000/api/users/${userId}/retreive`, {
+        const response = await fetch(`${process.env.EXPO_PUBLIC_BACKEND_URL}/users/${userId}/retreive`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json', // Specifies the request body is JSON

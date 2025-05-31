@@ -1,7 +1,7 @@
 const checkUsernameNSFW = async (username: string) => {
 
     try {
-        const response = await fetch(`http://localhost:3000/api/models/checkUsernameNSFW/${username}`);
+        const response = await fetch(`${process.env.EXPO_PUBLIC_BACKEND_URL}/models/checkUsernameNSFW/${username}`);
         if (!response.ok) {
             console.error("Error fetching data:", response.statusText);
             return null;

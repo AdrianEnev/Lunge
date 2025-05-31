@@ -2,7 +2,7 @@ const getFriendsList = async (userId: string | undefined) => {
 
     console.log('Attempting to fetch friends list...')
     try {
-        const response = await fetch(`http://localhost:3000/api/friends/${userId}`);
+        const response = await fetch(`${process.env.EXPO_PUBLIC_BACKEND_URL}/friends/${userId}`);
 
         if (!response.ok) {
             console.error("getFriendsList: error:", response.statusText);

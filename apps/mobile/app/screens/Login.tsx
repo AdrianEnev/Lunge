@@ -38,7 +38,7 @@ const Login = ({navigation}: any) => {
 
         const userId = user.user.uid;
 
-        const response = await fetch(`http://localhost:3000/api/users/${userId}/loginUser`);
+        const response = await fetch(`${process.env.EXPO_PUBLIC_BACKEND_URL}/users/${userId}/loginUser`);
 
         if (!response.ok) {
             console.error("response ERROR retreiving username and nutrients:", response);

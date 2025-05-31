@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 import { useStripe } from '@stripe/stripe-react-native';
 import tw from 'twrnc';
 
-const API_URL = 'http://localhost:3000/api/stripe';
+const API_URL = '${process.env.EXPO_PUBLIC_BACKEND_URL}/stripe';
 
 const PaymentComponent = () => {
 
