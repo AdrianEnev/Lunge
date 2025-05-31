@@ -1,3 +1,4 @@
+import 'module-alias/register';
 import express from 'express';
 import dotenv from 'dotenv';
 import userRouter from '@routes/users';
@@ -12,7 +13,10 @@ import errorHandler from '@middleware/errorHandler';
 import globalRouter from '@routes/global';
 
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: ['http://localhost:5173'], // allow frontend
+    credentials: true // if you're sending cookies or headers
+  }));
 app.use(express.json());
 dotenv.config();
 

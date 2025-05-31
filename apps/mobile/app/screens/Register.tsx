@@ -39,7 +39,7 @@ const Register = ({navigation}: any) => {
     // Returns 'error' if there were any errors
     const fetchRegistration = async(newUser: any) => {
         try {
-            const response = await fetch(`http://localhost:3000/api/users/registerUser`, {
+            const response = await fetch(`${process.env.EXPO_PUBLIC_BACKEND_URL}/users/registerUser`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json', // Specifies the request body is JSON

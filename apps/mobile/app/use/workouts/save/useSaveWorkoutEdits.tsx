@@ -13,7 +13,7 @@ const saveWorkoutEdits = async (workout: any, userInputs: any, newExercises: any
     console.log(workoutData);
 
     try {
-        const response = await fetch(`http://localhost:3000/api/workouts/${userId}/saveWorkoutEdits/${workout.id}`, {
+        const response = await fetch(`${process.env.EXPO_PUBLIC_BACKEND_URL}/workouts/${userId}/saveWorkoutEdits/${workout.id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'

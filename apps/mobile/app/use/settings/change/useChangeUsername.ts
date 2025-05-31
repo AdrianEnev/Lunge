@@ -19,7 +19,7 @@ const changeUsername = async (
     });
 
     try {
-        const response = await fetch(`http://localhost:3000/api/users/${userId}/username?${params.toString()}`, {
+        const response = await fetch(`${process.env.EXPO_PUBLIC_BACKEND_URL}/users/${userId}/username?${params.toString()}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

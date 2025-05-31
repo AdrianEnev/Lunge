@@ -27,7 +27,7 @@ export const validateFriendSearch = async (userToCheck: any) => {
 
     // checks: hasUserDisabledFriendRequests, isRequestPending, isFriendAlready
     try {
-        const response = await fetch(`http://localhost:3000/api/friends/${loggedUserId}/${userToCheckId}`);
+        const response = await fetch(`${process.env.EXPO_PUBLIC_BACKEND_URL}/friends/${loggedUserId}/${userToCheckId}`);
         if (!response.ok) {
             console.error("error updating nutrients: ", response.statusText);
             return null;

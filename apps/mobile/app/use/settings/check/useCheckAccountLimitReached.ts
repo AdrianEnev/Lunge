@@ -7,7 +7,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const getMissingAccounts = async (asyncStorageEmails: any) => {
 
     try {
-        const response = await fetch(`http://localhost:3000/api/global/matchAccounts`, {
+        const response = await fetch(`${process.env.EXPO_PUBLIC_BACKEND_URL}/global/matchAccounts`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json', 

@@ -8,6 +8,14 @@
     "start": "node dist/server.js",
     "dev": "nodemon -r tsconfig-paths/register server.ts"
   },
+  "_moduleAliases": {
+    "@custom_errors": "dist/errors/custom_errors",
+    "@config": "dist/config",
+    "@middleware": "dist/middleware",
+    "@routes": "dist/routes",
+    "@services": "dist/services",
+    "@utils": "dist/utils"
+  },
   "overrides": {
     "whatwg-url": "^14.2.0",
     "tr46": "^5.1.0"
@@ -24,11 +32,13 @@
     "firebase": "^11.5.0",
     "firebase-admin": "^13.2.0",
     "google-auth-library": "^9.15.1",
+    "module-alias": "^2.2.3",
     "stripe": "^17.7.0",
     "tr46": "^5.1.0",
     "whatwg-url": "^14.2.0"
   },
   "devDependencies": {
+    "@flydotio/dockerfile": "^0.7.10",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.1",
     "@types/node": "^22.13.14",

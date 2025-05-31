@@ -564,7 +564,7 @@ function App() {
         }}>
 
             <StripeProvider 
-                publishableKey='REDACTED'
+                publishableKey={process.env.EXPO_PUBLIC_STRIPE_PUBLISHABLE_KEY}
                 merchantIdentifier="com.nafle.LungeFitnessTracker"
                 urlScheme='lunge-fitness-tracker'
             >

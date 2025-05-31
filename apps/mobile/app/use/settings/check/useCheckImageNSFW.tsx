@@ -1,6 +1,6 @@
 const checkImage = async (uri: any) => {
     try {
-        const response = await fetch(`http://localhost:3000/api/models/checkImageNSFW/${uri}`);
+        const response = await fetch(`${process.env.EXPO_PUBLIC_BACKEND_URL}/models/checkImageNSFW/${uri}`);
         if (!response.ok) {
             console.error("Error fetching data:", response.statusText);
             return null;
