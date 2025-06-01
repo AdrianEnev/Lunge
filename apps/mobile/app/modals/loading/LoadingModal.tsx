@@ -29,7 +29,7 @@ const LoadingModal: React.FC<LoadingModalProps> = ({
                 <View style={tw`w-[100%] h-1/2 rounded-[30px] px-2`}>
 
                     <View style={tw`flex-1 justify-center items-center mt-6`}>
-                        <Swing color={`white`} size={thirtyPercentScreenWidth} />
+                        <Swing color={`#fd3e6b`} size={thirtyPercentScreenWidth} />
                     </View>
                 </View>
             </View>

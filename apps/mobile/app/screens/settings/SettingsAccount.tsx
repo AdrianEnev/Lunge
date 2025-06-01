@@ -1,4 +1,4 @@
-import { View, Text } from 'react-native'
+import { View, Text, Alert } from 'react-native'
 import React, { useContext, useEffect, useState } from 'react'
 import tw from 'twrnc'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -11,11 +11,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import { BlurView } from 'expo-blur'
 import syncInformation from '@use/settings/useSyncInfo'
 import DeletingAccountModal from '@modals/loading/DeletingAccountModal'
-import SyncInfoExtraModal from '@modals/settings/SyncInfoInformationModal'
-import SyncInfoModal from '@modals/settings/SyncInfoModal'
-import RetreiveInfoModal from '@app/modals/settings/RetreiveInfoModal'
 import LoadingModal from '@app/modals/loading/LoadingModal'
-import RetreiveInfoExtraModal from '@app/modals/settings/RetreiveInfoExtraModal'
 import promptLogOut from '@app/components/prompts/promptLogOut'
 import promptChangeUsername from '@app/components/prompts/promptChangeUsername'
 import promptDeleteAccount from '@app/components/prompts/promptDeleteAccount'
@@ -34,12 +30,8 @@ const SettingsAccount = ({navigation}: any) => {
         setSyncingInfoRunning
     } = useContext(GlobalContext);
 
-    const [isSyncInfoModalVisible, setIsSyncInfoModalVisible] = useState(false);
-    const [isSyncingInfoModalVisible, setIsSyncingInfoModalVisible] = useState(false);
-    const [isSyncInfoExtraModalVisible, setIsSyncInfoExtraModalVisible] = useState(false);
     const [isDeletingAccountModalVisible, setIsDeletingAccountModalVisible] = useState(false);
-    const [isRetreiveInfoModalVisible, setIsRetreiveInfoModalVisible] = useState(false);
-    const [isRetreiveInfoExtraModalVisible, setIsRetreiveInfoExtraModalVisible] = useState(false);
+    const [retreivingInfoRunning, setRetreivingInfoRunning] = useState(false);
     const [isLoadingModalVisible, setIsLoadingModalVisible] = useState(false);
     const [isRetreiveInfoRan, setIsRetreiveInfoRan] = useState(false);
 
@@ -79,42 +71,74 @@ const SettingsAccount = ({navigation}: any) => {
     const syncInfo = async () => {
         
         setSyncingInfoRunning(true);
-        setIsSyncingInfoModalVisible(true);
     
         try {
             await syncInformation();
         } catch (error) {
             console.error("Sync information failed", error);
         } finally {
-            setIsSyncingInfoModalVisible(false);
             setTimeout(() => {
-                setIsSyncInfoModalVisible(false);
                 setSyncingInfoRunning(false);
             }, 10);
         }
     };
 
-    const retreiveInfoFunc = async () => {
-        setIsRetreiveInfoModalVisible(false);
-        setIsLoadingModalVisible(true);
+    const syncInfoAlert = async () => {
+        Alert.alert(
+            t('sync-info'),
+            t('back-up-info-modal'),
+            [
+                {
+                    text: t('cancel'),
+                    style: 'cancel',
+                },
+                {
+                    text: t('back-up'),
+                    onPress: () => syncInfo(),
+                },
+            ],
+            { cancelable: true }
+        );
+    }
 
-        // Set timeout to prevent App freeze in case loading modal closes too early
-        // 100+ ms should be safe, likely a react native issue that can't be prevented otherwise
-        setTimeout(async () => {
+    const retreiveInfoFunc = async () => {
+        setRetreivingInfoRunning(true);
+
+        try {
             await retreiveInfo(refreshRetreiveInfoRan, internetConnected, t);
-            setIsLoadingModalVisible(false);
-        }, 120);
+        } catch (error) {
+            console.error("Sync information failed", error);
+        } finally {
+            setTimeout(() => {
+                setRetreivingInfoRunning(false);
+            }, 10);
+        }
+    }
+
+    const retreiveInfoAlert = () => {
+        Alert.alert(
+            t('retreive-info'),
+            t('retreive-info-modal'),
+            [
+                {
+                    text: t('cancel'),
+                    style: 'cancel',
+                },
+                {
+                    text: t('next'),
+                    onPress: () => retreiveInfoFunc(),
+                },
+            ],
+            { cancelable: true }
+        );
     }
 
     return (
         <>
             {(
-                isSyncingInfoModalVisible || 
                 isDeletingAccountModalVisible || 
-                isSyncInfoExtraModalVisible || 
-                isSyncInfoModalVisible ||
-                isRetreiveInfoModalVisible ||
-                isRetreiveInfoExtraModalVisible ||
+                syncingInfoRunning ||
+                retreivingInfoRunning ||
                 isLoadingModalVisible
             ) && (
                 <BlurView
@@ -131,7 +155,7 @@ const SettingsAccount = ({navigation}: any) => {
                     setIsDeletingAccountModalVisible={setIsDeletingAccountModalVisible}
                 />
 
-                <SyncInfoModal
+                {/* <SyncInfoModal
                     isSyncInfoModalVisible={isSyncInfoModalVisible}
                     setIsSyncInfoModalVisible={setIsSyncInfoModalVisible}
                     setIsSyncInfoExtraModalVisible={setIsSyncInfoExtraModalVisible}
@@ -154,10 +178,10 @@ const SettingsAccount = ({navigation}: any) => {
                     isRetreiveInfoExtraModalVisible={isRetreiveInfoExtraModalVisible}
                     setIsRetreiveInfoExtraModalVisible={setIsRetreiveInfoExtraModalVisible}
                     setIsRetreiveInfoModalVisible={setIsRetreiveInfoModalVisible}
-                />
+                />*/}
 
                 <LoadingModal
-                    isLoadingModalVisible={isLoadingModalVisible}
+                    isLoadingModalVisible={isLoadingModalVisible || syncingInfoRunning || retreivingInfoRunning}
                     setIsLoadingModalVisible={setIsLoadingModalVisible}
                 />
 
@@ -240,7 +264,7 @@ const SettingsAccount = ({navigation}: any) => {
                         iconSize={34}
                         action={async () => {
                             if (syncingInfoRunning) return;
-                            setIsSyncInfoModalVisible(true)
+                            syncInfoAlert();
                         }}
                         t={t}
                         internetConnected={internetConnected}
@@ -256,7 +280,7 @@ const SettingsAccount = ({navigation}: any) => {
                             iconSize={34}
                             action={async () => {
                                 if (syncingInfoRunning) return;
-                                setIsRetreiveInfoModalVisible(true)
+                                retreiveInfoAlert()
                             }}
                             t={t}
                             internetConnected={internetConnected}

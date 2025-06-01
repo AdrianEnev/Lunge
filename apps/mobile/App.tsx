@@ -164,7 +164,7 @@ function App() {
     useEffect(() => {
         //logAllFoodDays();
         //AsyncStorage.setItem('retreiveInfo', 'false');
-        //clearAsyncStorage();
+        clearAsyncStorage();
     }, [])*/
 
     const onAuthenticate = async () => {
@@ -499,9 +499,9 @@ function App() {
 
         // Handles the logic for navigation based on language and authentication
         if (!localLanguageSet && !iphoneModel.includes('SE')) {
-            return <LanguageScreen setLocalLanguageSet={setLocalLanguageSet} />;
-        }else if (!localLanguageSet && iphoneModel.includes('SE')) {
-            return <LanguageScreenSmall setLocalLanguageSet={setLocalLanguageSet} />;
+            return <LanguageScreen setLocalLanguageSet={setLocalLanguageSet} iphoneModel={iphoneModel}/>;
+        }else if (!localLanguageSet && (iphoneModel.includes('SE') || iphoneModel.includes('Mini'))) {
+            return <LanguageScreenSmall setLocalLanguageSet={setLocalLanguageSet} iphoneModel={iphoneModel}/>;
         }
 
         if (!localEmail && !user) {

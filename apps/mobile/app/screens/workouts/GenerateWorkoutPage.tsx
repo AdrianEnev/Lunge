@@ -75,6 +75,10 @@ const GenerateWorkoutPage = ({navigation, route}: any) => {
     }
 
     const nextPage = async () => {
+
+        if (temporarilyDisabled) {
+            return;
+        }
         
         if (currentPage === 1 && experienceLevel !== 0) {
             setCurrentPage(currentPage + 1);
@@ -101,6 +105,8 @@ const GenerateWorkoutPage = ({navigation, route}: any) => {
     const previousPage = () => {
         if (currentPage > 1) {
             setCurrentPage(currentPage - 1)
+        }else{
+            navigation.goBack();
         }
     }
 
@@ -112,6 +118,8 @@ const GenerateWorkoutPage = ({navigation, route}: any) => {
             });
         }
     };
+
+    const [temporarilyDisabled, setTemporarilyDisabled] = useState(true);
 
     const [currentPage, setCurrentPage] = useState(1);
     const scrollViewRef = useRef<ScrollView>(null);
@@ -160,7 +168,11 @@ const GenerateWorkoutPage = ({navigation, route}: any) => {
 
                         <View style={tw`h-full`}>
 
-                            {currentPage === 1 ? (
+                            {temporarilyDisabled ? (
+                                <View style={tw`w-full h-full flex items-center justify-center`}>
+                                    <Text style={tw`text-4xl text-red-400 font-medium text-center mt-[-15%]`}>Temporarily Unavailable!</Text>
+                                </View>
+                            ) : currentPage === 1 ? (
                                 <PageOne experienceLevel={experienceLevel} setExperienceLevel={setExperienceLevel}/>
                             ) : currentPage === 2 ? (
                                 <PageTwo primaryGoal={primaryGoal} setPrimaryGoal={setPrimaryGoal}/>      

@@ -12,6 +12,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import SettingsButton from "@components/settings/SettingsButton"
 
 const Settings = ({navigation}: any) => {
+
+    const {iphoneModel} = useContext(GlobalContext);
     
     const { 
         faceIdEnabled, 
@@ -178,7 +180,9 @@ const Settings = ({navigation}: any) => {
                 />
             </View>
 
-            <BottomNavigationBar currentPage='Settings' navigation={navigation}/>
+            {!(iphoneModel.includes('SE') || iphoneModel.includes('Mini'))&& (
+                <BottomNavigationBar currentPage='Settings' navigation={navigation}/>
+            )}
 
         </View>
     )

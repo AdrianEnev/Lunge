@@ -5,8 +5,10 @@ import {Picker} from '@react-native-picker/picker';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import GlobalContext from '@config/GlobalContext'
 
-const LanguageScreen = ({ setLocalLanguageSet }: { setLocalLanguageSet: (value: boolean) => void }) => {
-
+const LanguageScreen = (
+    { setLocalLanguageSet, iphoneModel }: 
+    { setLocalLanguageSet: (value: boolean) => void, iphoneModel: string }) => 
+{
     const [language, setLanguage] = useState('English')
     const languagesEN = [ 
         'English', "Български", "Français", "Deutsch", "Русский", "Italiano", "Español"
@@ -18,7 +20,6 @@ const LanguageScreen = ({ setLocalLanguageSet }: { setLocalLanguageSet: (value: 
         setLocalLanguageSet(true);
     }
 
-    const {iphoneModel} = useContext(GlobalContext);
     //console.log(iphoneModel)
     //console.log('large screen')
 

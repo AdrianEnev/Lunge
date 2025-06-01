@@ -26,7 +26,7 @@ const Main = ({navigation}: any) => {
 
     const { t } = useTranslation();
 
-    const { internetConnected, iphoneModel, friendRequestsNumber, internetSpeed } = useContext(GlobalContext);
+    const { internetConnected, iphoneModel, friendRequestsNumber } = useContext(GlobalContext);
 
     const [currentNutrients, setCurrentNutrients] = useState<any>(null);
     const [goalNutrients, setGoalNutrients] = useState<any>({
@@ -166,7 +166,7 @@ const Main = ({navigation}: any) => {
 
                 </ScrollView>
 
-                {!iphoneModel.includes('SE') && (
+                {!(iphoneModel.includes('SE') || iphoneModel.includes('Mini'))&& (
                     <BottomNavigationBar currentPage='Main' navigation={navigation}/>
                 )}
 
