@@ -28,4 +28,3 @@
 - [ ] Integrate chat assistant
 - [ ] Improve syncing with web version of Lunge
 - [ ] View gyms in local area
-- [ ] Deploy to Render or Vercel
