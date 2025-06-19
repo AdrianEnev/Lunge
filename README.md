@@ -1,4 +1,4 @@
-# 🏋️‍♂️ Lunge: AI Fitness Tracker
+# 🏋️‍♂️ Lunge: Fitness Tracker
 - Mobile frontend written on React Native (tailwind css + expo)
 - Web frontend written on React + React Router v7 (tailwind css + vite)
 - Backend with Node.js + Express
