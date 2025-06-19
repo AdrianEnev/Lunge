@@ -3,7 +3,7 @@ export const getUserLoginInfo = async (user: any) => {
     const userId = user.uid;
 
     // Retreives user info from the database and stores it in local storage - later cleared on logout
-    fetch(`/api/web/users/${userId}`)
+    fetch(`${import.meta.env.VITE_REACT_BACKEND_URL}/web/users/${userId}`)
         .then((res) => res.json()) // Return the parsed JSON
         .then(async (data) => {
 

@@ -9,12 +9,12 @@
     "dev": "nodemon -r tsconfig-paths/register server.ts"
   },
   "_moduleAliases": {
-    "@custom_errors": "dist/errors/custom_errors",
-    "@config": "dist/config",
-    "@middleware": "dist/middleware",
-    "@routes": "dist/routes",
-    "@services": "dist/services",
-    "@utils": "dist/utils"
+    "@custom_errors": "errors/custom_errors",
+    "@config": "config",
+    "@middleware": "middleware",
+    "@routes": "routes",
+    "@services": "services",
+    "@utils": "utils"
   },
   "overrides": {
     "whatwg-url": "^14.2.0",

@@ -1,7 +1,6 @@
 const checkUsernameNSFW = async (username: string) => {
-
     try {
-        const response = await fetch(`/api/checkUsernameNSFW/${username}`);
+        const response = await fetch(`${import.meta.env.VITE_REACT_BACKEND_URL}/checkUsernameNSFW/${username}`);
         if (!response.ok) {
             console.error("Error fetching data:", response.statusText);
             return null;

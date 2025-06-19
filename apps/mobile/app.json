@@ -2,7 +2,7 @@
   "expo": {
     "name": "Lunge",
     "slug": "LungeFitnessTracker",
-    "version": "1.0.3",
+    "version": "1.0.5",
     "orientation": "portrait",
     "icon": "./assets/icon.jpeg",
     "userInterfaceStyle": "light",
@@ -16,16 +16,15 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
       "infoPlist": {
         "NSFaceIDUsageDescription": "This app uses FaceID to secure your data.",
         "NSPhotoLibraryUsageDescription": "This app uses the photo library to upload profile pictures.",
         "UIBackgroundModes": [
-          "fetch",
           "fetch"
         ],
         "ITSAppUsesNonExemptEncryption": false,
-        "UIDeviceFamily": [1]
+        "UIDeviceFamily": [1],
+        "supportsTablet": false
       },
       "bundleIdentifier": "com.nafle.LungeFitnessTracker"
     },

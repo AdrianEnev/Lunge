@@ -6,7 +6,8 @@
     "start": "expo start -c",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "dev": "npx expo"
   },
   "dependencies": {
     "@gorhom/bottom-sheet": "^5.0.6",

@@ -15,7 +15,7 @@ import globalRouter from '@routes/global';
 const app = express();
 app.use(cors({
     origin: ['http://localhost:5173'], // allow frontend
-    credentials: true // if you're sending cookies or headers
+    credentials: true
   }));
 app.use(express.json());
 dotenv.config();

@@ -35,10 +35,10 @@ const languageResources = {
 i18next
     .use(initReactI18next)
     .init({
-    compatibilityJSON: 'v3',
-    lng: "en",
-    fallbackLng: "bg",
-    resources: languageResources,
+        compatibilityJSON: 'v3',
+        lng: "en",
+        fallbackLng: "bg",
+        resources: languageResources,
     });
 
 export default i18next;

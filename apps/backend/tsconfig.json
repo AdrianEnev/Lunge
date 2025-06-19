@@ -6,22 +6,22 @@
       "rootDir": "./",
       "strict": true,
       "esModuleInterop": true,
-      "allowJs": true, // Allow JavaScript files
-      "checkJs": false, // Disable type-checking for JavaScript files
-      "resolveJsonModule": true, // Allow json files
+      "allowJs": true,
+      "checkJs": false,
+      "resolveJsonModule": true,
       "baseUrl": ".",
-        "paths": {
-            "@custom_errors/*": ["errors/custom_errors/*"],
-            "@config/*": ["config/*"],
-            "@middleware/*": ["middleware/*"],
-            "@routes/*": ["routes/*"],
-            "@services/*": ["services/*"],
-            "@utils/*": ["utils/*"],
-        }
+      "paths": {
+        "@custom_errors/*": ["errors/custom_errors/*"],
+        "@config/*": ["config/*"],
+        "@middleware/*": ["middleware/*"],
+        "@routes/*": ["routes/*"],
+        "@services/*": ["services/*"],
+        "@utils/*": ["utils/*"]
+      }
     },
-    "include": ["**/*"], // Include all files in the project
+    "include": ["**/*"],
     "exclude": ["node_modules"],
     "ts-node": {
-        "files": true
+      "files": true
     }
-}
+  }

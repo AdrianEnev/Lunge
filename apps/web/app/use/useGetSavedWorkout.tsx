@@ -2,6 +2,23 @@ import { doc, getDoc, collection, getDocs } from "firebase/firestore";
 import { FIREBASE_AUTH, FIRESTORE_DB } from "firebaseConfig";
 import type { Workout, Exercise, Set, SavedWorkout } from 'interfaces';
 
+export const getSavedWorkout = async (savedWorkoutId: string, userId: string) => {
+    try {
+        const response = await fetch(`${import.meta.env.VITE_REACT_BACKEND_URL}/web/savedWorkouts/${userId}/${savedWorkoutId}`);
+        if (!response.ok) {
+            console.error("Error fetching data:", response.statusText);
+            return null;
+        }
+
+        const data = await response.json();
+        console.log(data);
+        return data as SavedWorkout;
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        return null;
+    }
+};
+
 /*export const getSavedWorkout = async (savedWorkoutId: string, userId: any): Promise<Workout | null> => {
 
     const usersCollectionRef = collection(FIRESTORE_DB, 'users');
@@ -49,20 +66,3 @@ import type { Workout, Exercise, Set, SavedWorkout } from 'interfaces';
         id: savedWorkoutSnap.id
     } as Workout;
 }*/
-
-export const getSavedWorkout = async (savedWorkoutId: string, userId: string) => {
-    try {
-        const response = await fetch(`/api/web/savedWorkouts/${userId}/${savedWorkoutId}`);
-        if (!response.ok) {
-            console.error("Error fetching data:", response.statusText);
-            return null;
-        }
-
-        const data = await response.json();
-        console.log(data);
-        return data as SavedWorkout;
-    } catch (error) {
-        console.error("Error fetching data:", error);
-        return null;
-    }
-};
