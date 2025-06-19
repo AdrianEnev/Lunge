@@ -9,6 +9,7 @@ apps/mobile/.expo/
 
 # Environment variables
 **/.env*
+!.env.example
 apps/backend/config/*.json
 
 # Mobile-specific
